@@ -1,6 +1,9 @@
 
 <template>
+<div id="app">
 <Navbar/>
+  <router-view />
+</div>
 </template>
 <script>
 import Navbar from '@/components/navbar.vue'
@@ -16,6 +19,7 @@ export default {
 <style>
 body{
   background-color:#DED3BB;
+  
 }
 #app {
   font-family: roboto, Helvetica, Arial, sans-serif;

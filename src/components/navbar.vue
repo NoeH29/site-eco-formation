@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <nav>
       <ul> 
         <li><router-link to="/" id="na">Home</router-link></li>
@@ -31,7 +31,6 @@
         <li><router-link to="/inscription">inscription</router-link></li>
       </ul>
     </nav>
-    <router-view />
   </div>
 </template>
 <script>
