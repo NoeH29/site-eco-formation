@@ -88,6 +88,7 @@ button{
 }
 button:hover{
       transform: translate(5px,5px);
+      background-color: #474130;
      box-shadow: 5px 5px 5px grey;
 }
 #head{
