@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Inscription from'../views/inscription.vue'
 
 
 
@@ -7,6 +8,11 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+  path:"/inscription",
+  name:"Inscription",
+  component: Inscription
+}
  
 ]
 
