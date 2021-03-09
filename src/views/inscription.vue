@@ -7,7 +7,7 @@
              <input type="password" id="password" name="password" v-model="password" placeholder="mot de passe">
              <input type="password" id="confPassword" name="confPassword" v-model="confPassword" placeholder="confirmation de mot de passe">
             <input type="text" id="telephone" name="telephone" v-model="telephone" placeholder="téléphone">
-            <button id="btn" type="submit" @click="addClient"> S'inscrire </button>  
+            <button id="btn" type="submit" @click="connexion"> S'inscrire </button>  
            <p id="foot">Déja inscrit ?<a href="login">Se connecter</a></p> 
    </form>
 </template>
@@ -24,21 +24,14 @@ export default {
         }
     },
       methods: {
-    addClient: function() {
-      this.http
-        .post("",{nom:this.nom,prenom:this.prenom,mail:this.mail,password:this.password,telephone:this.telephone})
-        .then((res) => {
-          console.log(res.data);
-          if (res.data == "ok"){
-            this.nom = null;
-            this.prix=null;
-            this.description=null;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+  connexion : function (e) {
+        e.preventDefault();
+        let info = {
+          email:this.email,
+          password:this.password,
+        };
+        this.$store.dispatch('connexion',info);
+      },
   }
    
 }
