@@ -6,19 +6,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-  
+
   },
   mutations: {
-  
-    },
+
+  },
   actions: {
-    connexion(content, infos) {
+    inscription(content, infos) {
       axios.post("", infos).then((resp) => {
         console.log(resp.data);
         //context.commit('auth_succes',resp.data)
       });
     },
-  
+
   },
   modules: {
   }

@@ -1,6 +1,5 @@
 <template>
-
-  <div class="footer">
+  <div id="footer">
     <h1>{{ msg }}</h1>
     <div id="liens">
       <a href="#">
@@ -17,23 +16,21 @@
       </a>
     </div>
   </div>
-
 </template>
 
 <script>
 export default {
-  name: 'footer',
+  name: "footer",
   props: {
-    msg: String
-  }
-}
+    msg: String,
+  },
+};
 </script>
 
 <style scoped>
-.footer {
+#footer {
   background-color: bisque;
-  align-content: flex-end;
-
+  height: 10vh;
 }
 
 #liens {
@@ -41,12 +38,12 @@ export default {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
-  margin: 50px;
+
 }
 img {
   cursor: pointer;
 }
 img {
-  height: 10vh;
+  height: 5vh;
 }
 </style>
