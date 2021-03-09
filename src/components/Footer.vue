@@ -33,6 +33,7 @@ export default {
 .footer {
   background-color: bisque;
   align-content: flex-end;
+
 }
 
 #liens {

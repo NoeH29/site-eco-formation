@@ -2,7 +2,7 @@
   <div>
     <nav>
       <ul> 
-        <li><router-link to="/" id="na">Home</router-link></li>
+        <li><router-link to="/home" id="na">Home</router-link></li>
         <li class="deroulant">
           <router-link to="/about">menus</router-link> 
           <ul class="sous">

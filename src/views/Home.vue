@@ -1,13 +1,40 @@
 <template>
-  <div class="home"></div>
+  <div class="home">
+    <section id="page">
+      <header>
+
+      </header>
+
+      <nav>
+
+      </nav>
+
+      <main>
+
+      </main>
+
+      <footer>
+        <h1>Youri , Noé , Ludo , Kevin</h1>
+        <Footer/>
+      </footer>
+
+    </section>
+  </div>
 </template>
 
 <script>
+// @ is an alias to /src
+import Footer from "@/components/Footer.vue";
+
+
 export default {
   name: "Home",
+  components: {
+    Footer
+,
+  },
 };
 </script>
-
 <style scoped  >
 #page {
   display: grid;
