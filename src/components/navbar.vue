@@ -1,7 +1,11 @@
 <template>
   <nav>
     <ul>
-      <li><router-link to="/home" id="logo"> <img src="../assets/burger.svg"> Home</router-link></li>
+      <li>
+        <router-link to="/home" id="logo">
+          <img src="../assets/burger.svg" /> Home</router-link
+        >
+      </li>
       <li class="deroulant">
         <router-link to="/about">menus</router-link>
         <ul class="sous">
@@ -33,21 +37,19 @@
         <button v-on:click="toggleModal('up')" id="signUpButton">
           Se connecter
         </button>
-       
       </li>
-    </ul> 
+    </ul>
     <Connexion
-          v-bind:revele="revele"
-          v-bind:toggleModal="toggleModal"
-          v-bind:inscription="inscription"
-          v-bind:connexion="connexion"
-          v-bind:titre="titre"
-        />
+      v-bind:revele="revele"
+      v-bind:toggleModal="toggleModal"
+      v-bind:inscription="inscription"
+      v-bind:connexion="connexion"
+      v-bind:titre="titre"
+    />
   </nav>
 </template>
 <script>
 import Connexion from "@/components/connexion.vue";
-
 
 export default {
   data() {
@@ -83,14 +85,13 @@ export default {
 nav {
   padding: 40px 0 40px 0;
   width: 100%;
-  margin: 0 auto;
-  position: sticky;
 }
+
 #loginHome {
   display: flex;
   justify-content: space-evenly;
   width: 15%;
-  left:6%;
+  left: 6%;
 }
 
 nav ul {
@@ -108,24 +109,25 @@ nav ul .deroulant {
 nav ul li {
   text-align: left;
   padding-left: 15px;
-  position: relative; 
-  }
+  position: relative;
+  height: 15px;
+}
 
 nav ul::after {
   content: "";
   display: table;
   clear: both;
 }
-#logo{
+#logo {
   display: inline-flex;
   align-items: center;
-  top:-45%;
   position: relative;
-   left:-35%;
-   font-size:30px;
-
+  top:-200%;
+  left: -35%;
+  font-size: 30px;
+  height: 10vh;
 }
-img{
+img {
   height: 30vh;
 }
 
@@ -146,9 +148,10 @@ nav a:hover {
 .sous {
   display: none;
   position: absolute;
-  width: 100%;
+  width: 110%;
+  height: 150px;
   z-index: 1000;
-  background-color: #6a614c26;
+  background-color: #6a614c8c;
   padding-left: 0%;
   border-radius: 10px;
 }
@@ -158,6 +161,8 @@ nav > ul li:hover .sous {
 }
 .sous li {
   width: 100%;
+  padding:10px;
+  
 }
 .sous a {
   padding: 10px;
@@ -168,14 +173,14 @@ nav > ul li:hover .sous {
   content: " ▼";
   font-size: 12px;
 }
-button{
-    height: 25px;
+button {
+  height: 25px;
   background-color: #5f5439b9;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
 }
-button:hover{
-   background-color: #2c2719b9;
+button:hover {
+  background-color: #2c2719b9;
 }
 </style>
