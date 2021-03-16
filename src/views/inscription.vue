@@ -39,7 +39,7 @@
         placeholder="téléphone"
       />
       <button id="btn" type="submit" @click="inscription">S'inscrire</button>
-      <p id="foot">Déja inscrit ?<a href="login">Se connecter</a></p>
+      <p id="foot">Déja inscrit ?<a href="/connexion">Se connecter</a></p>
     </form>
   </div>
 </template>
@@ -80,8 +80,8 @@ form {
   border-radius: 5px;
   align-items: center;
   color: white;
-  background-image: url("../assets/burger.jpg");
-  background-size: cover;
+
+ 
   opacity: 0.75;
 }
 

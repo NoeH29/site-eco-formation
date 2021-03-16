@@ -1,7 +1,7 @@
 <template>
   <nav>
     <ul>
-      <li><router-link to="/home" id="na">Home</router-link></li>
+      <li><router-link to="/home" id="logo"> <img src="../assets/burger.svg"> Home</router-link></li>
       <li class="deroulant">
         <router-link to="/about">menus</router-link>
         <ul class="sous">
@@ -26,20 +26,71 @@
           <li><a href="#">réseau sociaux</a></li>
         </ul>
       </li>
-      <li><router-link to="/connexion">connexion</router-link></li>
-      <li><router-link to="/inscription">inscription</router-link></li>
-    </ul>
+      <li id="loginHome">
+        <button v-on:click="toggleModal('in')" id="signInButton">
+          S'inscrire
+        </button>
+        <button v-on:click="toggleModal('up')" id="signUpButton">
+          Se connecter
+        </button>
+       
+      </li>
+    </ul> 
+    <Connexion
+          v-bind:revele="revele"
+          v-bind:toggleModal="toggleModal"
+          v-bind:inscription="inscription"
+          v-bind:connexion="connexion"
+          v-bind:titre="titre"
+        />
   </nav>
 </template>
 <script>
-export default {};
+import Connexion from "@/components/connexion.vue";
+
+
+export default {
+  data() {
+    return {
+      revele: false,
+      inscription: false,
+      connexion: false,
+      titre: "",
+    };
+  },
+  components: {
+    Connexion,
+  },
+  methods: {
+    toggleModal: function(signState) {
+      this.revele = !this.revele;
+      if (signState === "up") {
+        this.connexion = true;
+        this.inscription = false;
+        this.titre = "CONNEXION";
+      }
+      if (signState === "in") {
+        this.inscription = true;
+        this.connexion = false;
+        this.titre = "INSCRIPTION";
+      }
+    },
+  },
+};
 </script>
+
 <style scoped>
 nav {
   padding: 40px 0 40px 0;
   width: 100%;
   margin: 0 auto;
   position: sticky;
+}
+#loginHome {
+  display: flex;
+  justify-content: space-evenly;
+  width: 15%;
+  left:6%;
 }
 
 nav ul {
@@ -57,13 +108,25 @@ nav ul .deroulant {
 nav ul li {
   text-align: left;
   padding-left: 15px;
-  position: relative;
-}
+  position: relative; 
+  }
 
 nav ul::after {
   content: "";
   display: table;
   clear: both;
+}
+#logo{
+  display: inline-flex;
+  align-items: center;
+  top:-45%;
+  position: relative;
+   left:-35%;
+   font-size:30px;
+
+}
+img{
+  height: 30vh;
 }
 
 nav a {
@@ -104,5 +167,15 @@ nav > ul li:hover .sous {
 .deroulant > a::after {
   content: " ▼";
   font-size: 12px;
+}
+button{
+    height: 25px;
+  background-color: #5f5439b9;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button:hover{
+   background-color: #2c2719b9;
 }
 </style>

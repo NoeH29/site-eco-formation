@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Inscription from'../views/inscription.vue'
 import Contact from'../views/Contact.vue'
 import Home from'../views/Home.vue'
+import Connexion from'../components/connexion.vue'
 
 
 
@@ -24,7 +25,13 @@ const routes = [
   path:"/home",
   name:"Home",
   component: Home
+},
+{
+  path:"/connexion",
+  name:"Connexion",
+  component: Connexion
 }
+
  
 ]
 

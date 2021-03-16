@@ -1,5 +1,5 @@
 <template>
-  <div id="footer">
+  <div id="foot">
     <h1>{{ msg }}</h1>
     <div id="liens">
       <a href="#">
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "footer",
+  name: "foot",
   props: {
     msg: String,
   },
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-#footer {
+#foot {
   background-color: bisque;
   height: 10vh;
 }

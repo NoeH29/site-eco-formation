@@ -12,10 +12,18 @@ export default new Vuex.Store({
 
   },
   actions: {
-    inscription(content, infos) {
+    inscriptionBase(content, infos) {
       axios.post("", infos).then((resp) => {
         console.log(resp.data);
         //context.commit('auth_succes',resp.data)
+      });
+    },
+    connexionBase(context, infos) {
+      axios.post("", infos).then((resp) => {
+        console.log(resp.data);
+        //localStorage.setItem("jwt", resp.data);
+       // axios.defaults.headers.common["Authorization"] = resp.data;
+        //context.commit("auth_succes", resp.data);
       });
     },
 
