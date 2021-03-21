@@ -7,7 +7,7 @@
         >
       </li>
       <li class="deroulant">
-        <router-link to="/about">menus</router-link>
+        <router-link to="/burger">menus</router-link>
         <ul class="sous">
           <li><a href="#">menus enfants</a></li>
           <li><a href="#">menus xl</a></li>
