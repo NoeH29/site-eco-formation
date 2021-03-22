@@ -92,6 +92,7 @@ input {
   border-radius: 5px;
   box-shadow: 10px 10px 5px grey;
   font-weight: bold;
+ 
 }
 input::-webkit-input-placeholder {
   color: black;

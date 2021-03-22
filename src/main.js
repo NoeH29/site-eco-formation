@@ -5,6 +5,9 @@ import router from "./router";
 import session from "vue-session";
 import store from './store'
 
+
+
+
 Vue.use(session);
 Vue.config.productionTip = false;
 Vue.prototype.http = Axios;

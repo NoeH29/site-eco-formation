@@ -8,6 +8,7 @@ import Connexion from'../components/connexion.vue'
 
 
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -22,7 +23,7 @@ const routes = [
   component: Contact
 },
 {
-  path:"/home",
+  path:"/",
   name:"Home",
   component: Home
 },

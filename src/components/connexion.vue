@@ -19,7 +19,9 @@
         name="password"
         v-model="password"
         placeholder="Mot de passe"
+
       />
+       <p v-if="connexion"> Pas encore inscrit  ? <a href="">clique ici.</a></p>
 
       <div id="inscription" v-if="inscription">
         <input
@@ -51,7 +53,8 @@
           name="telephone"
           v-model="telephone"
           placeholder="téléphone"
-        />
+        /> 
+        <p> Déjà inscrit ? <a href="">clique ici.</a></p>
       </div>
       <button id="signInButton" v-if="inscription" @click="inscriptionBase">
         S'inscrire
@@ -59,8 +62,8 @@
       <button id="signUpButton" v-if="connexion" @click="connexionBase">
         Se connecter
       </button>
+      </div> 
     </div>
-  </div>
 </template>
 
 <script>
@@ -119,10 +122,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index:1000;
 }
 .modal {
   border-radius: 10px;
-  height: 300px;
+  height: 440px;
   width: 500px;
   background: #f1f1f1;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -132,12 +136,15 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
 #inscription {
   display: flex;
   flex-direction: column;
+   z-index:1000;
 }
 input {
-  margin: 10px;
+  margin: 5px;
+  padding:10px;
 }
 i {
   position: absolute;
@@ -152,12 +159,13 @@ i:hover {
 }
 
 button {
-  height: 25px;
+  height: 35px;
   width: 100px;
   background-color: #5f5439b9;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  color:white;
 }
 button:hover {
   transform: translate(5px, 5px);

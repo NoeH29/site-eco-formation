@@ -2,7 +2,7 @@
   <nav>
     <ul>
       <li>
-        <router-link to="/home" id="logo">
+        <router-link to="/" id="logo">
           <img src="../assets/burger.svg" /> Home</router-link
         >
       </li>
@@ -90,8 +90,8 @@ nav {
 #loginHome {
   display: flex;
   justify-content: space-evenly;
-  width: 15%;
-  left: 6%;
+  width: 25%;
+  left:10%;
 }
 
 nav ul {
@@ -173,14 +173,50 @@ nav > ul li:hover .sous {
   content: " ▼";
   font-size: 12px;
 }
-button {
-  height: 25px;
-  background-color: #5f5439b9;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-button:hover {
-  background-color: #2c2719b9;
-}
+
+ button,
+      button::after {
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      }
+
+   button {
+     left:-50px;
+      background: none;
+      border: 4px solid #fff;
+      border-radius: 10px;
+      color: #fff;
+      display: block;
+      font-size: 16px;
+      padding:5px 10px 20px 10px;
+      font-weight: bold;
+      position: relative;
+      }
+  
+      button::before,
+      button::after {
+    background: white;
+      content: '';
+      position: absolute;
+      z-index: -1;
+
+      }
+      button:hover {
+      color: #806c3f;
+      cursor: pointer;
+      }
+  button::after {
+      height: 0;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      }
+      button:hover:after {
+      height: 100%;
+      left: 0;
+      top: 0;
+      width: 100%;
+      }
 </style>

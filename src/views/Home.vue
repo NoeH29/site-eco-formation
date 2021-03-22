@@ -1,11 +1,93 @@
 <template>
-  <div id="home"></div>
-</template>
+  <div id="home">
+    <vueper-slides
+      fade
+      :touchable="false"
+      :parallax="parallax"
+      autoplay
+      :pause-on-hover="pauseOnHover"
+      fixedHeight="700px"
+    >
+      <vueper-slide
+        v-for="(slide, i) in slides"
+        :key="i"
+        :image="slide.image"
+      />
+    </vueper-slides>
 
+    <h1>CUISINE MAISON !</h1>
+    <p>
+      Le restaurant vous accueille avec ses 42 places assises pour savourer
+      <span> une cuisine locale </span> composée de produits du terroir (viande
+      local, frommage de chèvre, produits de saison..) frais et de qualité.
+    </p>
+    <p>
+      Tout est <span> cuisiné maison </span> et vous pourrez déguster un burger
+      du jour différent chaque jour.
+    </p>
+    <p>
+      <span> Le Sah quel plaisir ! </span> est ouvert du lundi au samedi et nous
+      disposons d’un parking privé.
+    </p>
+    <p>
+      Retrouver nous aussi en <span> click and collect !</span> Vous pouvez nous
+      joindre <a href="/contact">ici !</a>
+    </p>
+  </div>
+</template>
 <script>
+import { VueperSlides, VueperSlide } from "vueperslides";
+import "vueperslides/dist/vueperslides.css";
+
 export default {
   name: "Home",
+  data() {
+    return {
+      pauseOnHover: true,
+      autoPlaying: true,
+      parallax: 1,
+      slides: [
+        {
+          image: require("@/assets/photoBurger/burger1.jpg"),
+        },
+        {
+          image: require("@/assets/photoBurger/burger2.jpg"),
+        },
+        {
+          image: require("@/assets/photoBurger/burger3.jpg"),
+        },
+        {
+          image: require("@/assets/photoBurger/burger4.jpg"),
+        },
+        {
+          image: require("@/assets/photoBurger/burger5.jpg"),
+        },
+      ],
+    };
+  },
+  components: {
+    VueperSlides,
+    VueperSlide,
+  },
 };
 </script>
-<style scoped  >
+<style scoped>
+p {
+  font-size: 20px;
+}
+
+span {
+  font-weight: bold;
+  font-size: 22px;
+  color: brown;
+}
+#slide {
+  height: 20%;
+}
+a {
+  font-weight: bold;
+  font-size: 22px;
+  text-decoration: none;
+  color: beige;
+}
 </style>
