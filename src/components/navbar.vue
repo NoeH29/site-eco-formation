@@ -7,7 +7,7 @@
         >
       </li>
       <li class="deroulant">
-        <router-link to="/burger">menus</router-link>
+        <router-link to="/menus">menus</router-link>
         <ul class="sous">
           <li><a href="#">menus enfants</a></li>
           <li><a href="#">menus xl</a></li>
@@ -17,8 +17,8 @@
       <li class="deroulant">
         <router-link to="/cartes">cartes</router-link>
         <ul class="sous">
-          <li><a href="#">burgers</a></li>
-          <li><a href="#">boissons</a></li>
+          <li><a href="/burger">burgers</a></li>
+          <li><a href="/boissons">boissons</a></li>
           <li><a href="#">accompagnements</a></li>
         </ul>
       </li>

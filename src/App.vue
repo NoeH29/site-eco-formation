@@ -25,7 +25,7 @@ body {
   background-color: #ded3bb;
   margin: 0;
   padding: 0;
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 #app {
   font-family: roboto, Helvetica, Arial, sans-serif;

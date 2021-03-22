@@ -2,7 +2,7 @@
   <div id="burger">
     <div v-for="burger in burgers" v-bind:key="burger.id">
       
-      {{burger}}
+      {{burger.nom}}
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@ export default {
   name: "Burger",
   data: function () {
     return {
-      burgers: [],
+      burgers: null,
     };
   },
   mounted: function () {
@@ -20,7 +20,7 @@ export default {
       .get("http://localhost:9000/burgers")
       .then((response) => {
         console.log(response.data);
-        this.burgers = response.data;
+        this.burgers = response.data.burger;
         console.log(this.burgers);
       })
       .catch((error) => {

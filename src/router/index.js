@@ -3,8 +3,10 @@ import VueRouter from 'vue-router'
 import Inscription from '../views/inscription.vue'
 import Contact from '../views/Contact.vue'
 import Home from '../views/Home.vue'
+import Menus from '../views/Menus.vue'
 import Connexion from '../components/connexion.vue'
-import Burger from '../views/Burger.vue'
+import Burger from '../components/Burger.vue'
+import Boissons from '../components/Boissons.vue'
 
 
 
@@ -22,7 +24,7 @@ const routes = [
     component: Contact
   },
   {
-    path: "/home",
+    path: "/",
     name: "Home",
     component: Home
   },
@@ -35,6 +37,16 @@ const routes = [
     path: "/burger",
     name: "Burger",
     component: Burger
+  },
+  {
+    path: "/menus",
+    name: "Menus",
+    component: Menus
+  },
+  {
+    path: "/boissons",
+    name: "Boissons",
+    component: Boissons
   }
 
 ]
