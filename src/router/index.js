@@ -10,6 +10,7 @@ import Boissons from '../components/Boissons.vue'
 
 
 
+
 Vue.use(VueRouter)
 
 const routes = [
