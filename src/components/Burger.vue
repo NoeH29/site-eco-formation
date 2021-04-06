@@ -1,6 +1,6 @@
 <template>
   <div id="burger">
-    <div id="allCard" v-for="burger in $store.state.burgers" v-bind:key="burger.id">
+    <div id="allCard" v-for="burger in burgers" v-bind:key="burger.id">
       <div id="cardBurger">
       <img :src="require('@/assets/photoBurger/'+ burger.photo)">
      <h4> {{burger.nom}} :</h4>
@@ -18,7 +18,8 @@ export default {
   name: "Burger",
   data: function () {
     return {
-      menu: this.$store.state.menuShow,
+      burgers:null,
+       menu: this.$store.state.menuShow,
     };
   },
   methods:{
@@ -27,9 +28,16 @@ export default {
     }
   },
   mounted: function () {
- this.$store.dispatch("burger")
-  
-  },
+      this.http
+      .get("http://localhost:9000/burgers")
+      .then((response) => {
+       // console.log("response.data",response.data);
+        this.burgers = response.data.burger;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+     },
 };
 </script>
 

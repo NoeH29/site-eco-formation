@@ -7,9 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     menuShow:true,
-    token:localStorage.getItem('jwt') || '',
-    burgers:[]
-
+    //token:localStorage.getItem('jwt') || ''
   },
   mutations: {
     priceHide(state){
@@ -32,19 +30,7 @@ export default new Vuex.Store({
         //context.commit("auth_succes", resp.data);
       });
     },
-    burger(){
-      axios.defaults.headers.common['authorization'] = this.state.token;
-      axios
-      .get("http://localhost:9000/burgers")
-      .then((response) => {
-       // console.log("response.data",response.data);
-        this.state.burgers = response.data.burger;
-        //console.log("this.burger",this.state.burgers);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-     },
+    
     priceHide(context){
       context.commit("priceHide")
     }
