@@ -24,13 +24,20 @@
        <p v-if="connexion"> Pas encore inscrit  ? <a href="">clique ici.</a></p>
 
       <div id="inscription" v-if="inscription">
-        <input
+        <!-- <input
           type="password"
           id="confPassword"
           name="confPassword"
           v-model="confPassword"
           placeholder="confirmation de mot de passe"
-        />
+        /> -->
+         <input
+          type="text"
+          id="pseudo"
+          name="pseudo"
+          v-model="pseudo"
+          placeholder="pseudo"
+        /> 
 
         <input
           type="text"
@@ -75,6 +82,7 @@ export default {
       mail: "",
       password: "",
       confPassword: "",
+      pseudo:"",
       telephone: "",
     };
   },

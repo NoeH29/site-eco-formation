@@ -10,7 +10,7 @@ import store from './store'
 
 Vue.use(session);
 Vue.config.productionTip = false;
-Vue.prototype.http = Axios;
+Vue.prototype.http=Axios;
 
 
 new Vue({

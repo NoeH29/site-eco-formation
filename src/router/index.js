@@ -7,7 +7,7 @@ import Menus from '../views/Menus.vue'
 import Connexion from '../components/connexion.vue'
 import Burger from '../components/Burger.vue'
 import Boissons from '../components/Boissons.vue'
-
+import Accompagnements from '../components/Accompagnement.vue'
 
 
 
@@ -48,6 +48,11 @@ const routes = [
     path: "/boissons",
     name: "Boissons",
     component: Boissons
+  },
+  {
+    path: "/accompagnements",
+    name: "Accompagnements",
+    component: Accompagnements
   }
 
 ]

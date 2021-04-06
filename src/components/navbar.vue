@@ -19,7 +19,7 @@
         <ul class="sous">
           <li><a href="/burger">burgers</a></li>
           <li><a href="/boissons">boissons</a></li>
-          <li><a href="#">accompagnements</a></li>
+          <li><a href="/accompagnements">accompagnements</a></li>
         </ul>
       </li>
       <li class="deroulant">
