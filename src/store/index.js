@@ -7,12 +7,22 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     menuShow:true,
-    //token:localStorage.getItem('jwt') || ''
+    token:localStorage.getItem('jwt') || '',
+    connected:true,
+    connec:false
+  
   },
   mutations: {
     priceHide(state){
       state.menuShow = false
-    }
+    },
+    connexionHide(state){
+      state.connected = false
+    },
+    profilShow(state){
+      state.connec = true
+    },
+   
   },
   actions: {
     inscriptionBase(content, infos) {
@@ -33,6 +43,12 @@ export default new Vuex.Store({
     
     priceHide(context){
       context.commit("priceHide")
+    },
+    connexionHide(context){
+      context.commit("connnexionHide")
+    },
+    profilShow(context){
+      context.commit("profilShow")
     }
 
   },

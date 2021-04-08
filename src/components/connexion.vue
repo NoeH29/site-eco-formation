@@ -66,7 +66,7 @@
       <button id="signInButton" v-if="inscription" @click="inscriptionBase">
         S'inscrire
       </button>
-      <button id="signUpButton" v-if="connexion" @click="connexionBase">
+      <button id="signUpButton" v-if="connexion" @click="connexionBase , hide, show">
         Se connecter
       </button>
       </div> 
@@ -108,6 +108,13 @@ export default {
         .then(() => this.$router.push("/"))
         .catch((err) => console.log(err));
     },
+    hide:function(){
+      this.$store.dispatch("connexionHide")
+    },
+    show:function(){
+      this.$store.dispatch("profilShow")
+    }
+ 
   },
 };
 </script>

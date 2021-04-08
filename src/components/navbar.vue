@@ -30,14 +30,21 @@
           <li><a href="#">réseau sociaux</a></li>
         </ul>
       </li>
-      <li id="loginHome">
+      <li  id="loginHome">
         <button v-on:click="toggleModal('in')" id="signInButton">
           S'inscrire
         </button>
         <button v-on:click="toggleModal('up')" id="signUpButton">
           Se connecter
-        </button>
-      </li>
+        </button> 
+        </li>
+        <li v-if="connec">
+          <router-link to="/panier"><i class="fas fa-shopping-basket"></i></router-link>
+        </li>
+        <li v-if="connec">
+           <router-link to="/profil"><i class="fas fa-user"></i></router-link>
+        </li>
+     
     </ul>
     <Connexion
       v-bind:revele="revele"
@@ -58,6 +65,9 @@ export default {
       inscription: false,
       connexion: false,
       titre: "",
+     connected:this.$store.state.connected,
+     connec:this.$store.state.connec,
+      
     };
   },
   components: {
@@ -77,6 +87,7 @@ export default {
         this.titre = "INSCRIPTION";
       }
     },
+    
   },
 };
 </script>
@@ -218,5 +229,8 @@ nav > ul li:hover .sous {
       left: 0;
       top: 0;
       width: 100%;
+      }
+      .fas{
+        font-size: 30px;
       }
 </style>
