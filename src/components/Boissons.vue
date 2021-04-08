@@ -2,11 +2,11 @@
   <div id="boissons">
     <div id="allCard" v-for="boisson in boissons" v-bind:key="boisson.id">
       <div id="cardBoisson">
-     <img :src="require('@/assets/boissons/'+ boisson.photo)"> 
-     <h4> {{boisson.nom}} :</h4>
-     <p> {{boisson.description}}</p>
-    <p v-if="menu">  {{boisson.prix}}€</p>
-    <button>Ajouter</button>
+        <img :src="require('@/assets/boissons/' + boisson.photo_produit)" />
+        <h4>{{ boisson.nom_produit }} :</h4>
+        <p>{{ boisson.description }}</p>
+        <p v-if="menu">{{ boisson.prix_produit }}€</p>
+        <button>Ajouter</button>
       </div>
     </div>
   </div>
@@ -18,10 +18,10 @@ export default {
   data: function () {
     return {
       boissons: null,
-       menu: this.$store.state.menuShow,
+      menu: this.$store.state.menuShow,
     };
   },
-  
+
   mounted: function () {
     this.http
       .get("http://localhost:9000/boissons")
@@ -38,31 +38,28 @@ export default {
 
 
 <style scoped>
-#allCard{
+#allCard {
   display: inline-flex;
   justify-content: space-evenly;
   align-items: center;
   height: 100vh;
 }
-#cardBoisson{
-  height:70%;
-  width: 100%;
+#cardBoisson {
+  height: 300px;
+  width: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
- clip-path:  inset(0% 0 0 0 round 25% 0 25% 0);
-  background:whitesmoke;
-  padding-bottom:2%;
+  clip-path: inset(0% 0 0 0 round 25% 0 25% 0);
+  background: whitesmoke;
+  padding-bottom: 2%;
   align-items: center;
 }
-img{
-
-  clip-path:  inset(0% 0 0 0 round 25% 0 25% 0);
- 
-
+img {
+  clip-path: inset(0% 0 0 0 round 25% 0 25% 0);
+  height: 30%;
 }
-button{
-  width: 25%;
+button {
+  width: 30%;
 }
-
 </style>
