@@ -19,9 +19,8 @@
         name="password"
         v-model="password"
         placeholder="Mot de passe"
-
       />
-       <p v-if="connexion"> Pas encore inscrit  ? <a href="">clique ici.</a></p>
+      <p v-if="connexion">Pas encore inscrit ? <a href="">clique ici.</a></p>
 
       <div id="inscription" v-if="inscription">
         <!-- <input
@@ -31,13 +30,13 @@
           v-model="confPassword"
           placeholder="confirmation de mot de passe"
         /> -->
-         <input
+        <input
           type="text"
           id="pseudo"
           name="pseudo"
           v-model="pseudo"
           placeholder="pseudo"
-        /> 
+        />
 
         <input
           type="text"
@@ -60,17 +59,17 @@
           name="telephone"
           v-model="telephone"
           placeholder="téléphone"
-        /> 
-        <p> Déjà inscrit ? <a href="">clique ici.</a></p>
+        />
+        <p>Déjà inscrit ? <a href="">clique ici.</a></p>
       </div>
       <button id="signInButton" v-if="inscription" @click="inscriptionBase">
         S'inscrire
       </button>
-      <button id="signUpButton" v-if="connexion" @click="connexionBase , hide, show">
+      <button id="signUpButton" v-if="connexion" @click="connexionBase">
         Se connecter
       </button>
-      </div> 
     </div>
+  </div>
 </template>
 
 <script>
@@ -82,13 +81,13 @@ export default {
       mail: "",
       password: "",
       confPassword: "",
-      pseudo:"",
+      pseudo: "",
       telephone: "",
     };
   },
   name: "Login",
   props: ["revele", "toggleModal", "inscription", "connexion", "titre"],
-  
+
   methods: {
     inscriptionBase: function() {
       let info = {
@@ -101,20 +100,29 @@ export default {
       this.$store.dispatch("inscriptionBase", info);
     },
     connexionBase: function() {
-      const mail = this.mail;
-      const password = this.password;
-      this.$store
-        .dispatch("connexionBase", { mail, password })
-        .then(() => this.$router.push("/"))
+      let self = this;
+      this.http
+        .post("http://localhost:9000/connexion", {
+          mail: this.mail,
+          password: this.password,
+        })
+        .then(function(res) {
+          console.log(res.data)
+          if (res.status === 200) {
+            self.$session.start();
+            self.$session.set("jwt", res.data);
+            //self.http.headers['authorization'] = 'Bearer ' + res.data
+          }
+        })
+        .then(this.toggleModal)
+        .then(() => this.$router.push("/").catch(()=>{}))
         .catch((err) => console.log(err));
+      /*this.$store
+        .dispatch("connexionBase", { mail, password })
+        .then(this.toggleModal)
+        .then(() => this.$router.push("/"))
+        .catch((err) => console.log(err));*/
     },
-    hide:function(){
-      this.$store.dispatch("connexionHide")
-    },
-    show:function(){
-      this.$store.dispatch("profilShow")
-    }
- 
   },
 };
 </script>
@@ -137,7 +145,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index:1000;
+  z-index: 1000;
 }
 .modal {
   border-radius: 10px;
@@ -155,11 +163,11 @@ export default {
 #inscription {
   display: flex;
   flex-direction: column;
-   z-index:1000;
+  z-index: 1000;
 }
 input {
   margin: 5px;
-  padding:10px;
+  padding: 10px;
 }
 i {
   position: absolute;
@@ -180,7 +188,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  color:white;
+  color: white;
 }
 button:hover {
   transform: translate(5px, 5px);

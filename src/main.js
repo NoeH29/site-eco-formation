@@ -6,9 +6,11 @@ import session from "vue-session";
 import store from './store'
 
 
+var options = {
+  persist: true
+}
 
-
-Vue.use(session);
+Vue.use(session,options);
 Vue.config.productionTip = false;
 Vue.prototype.http=Axios;
 

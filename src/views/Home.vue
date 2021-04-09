@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <h6>{{session}}</h6>
     <vueper-slides
       fade
       :touchable="false"
@@ -63,6 +64,7 @@ export default {
           image: require("@/assets/photoBurger/burger5.jpg"),
         },
       ],
+      session:this.$session.getAll(),
     };
   },
   components: {

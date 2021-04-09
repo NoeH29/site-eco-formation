@@ -8,20 +8,17 @@ export default new Vuex.Store({
   state: {
     menuShow:true,
     token:localStorage.getItem('jwt') || '',
-    connected:true,
-    connec:false
+   
   
   },
   mutations: {
     priceHide(state){
       state.menuShow = false
     },
-    connexionHide(state){
-      state.connected = false
-    },
-    profilShow(state){
-      state.connec = true
-    },
+    deco(state){
+      state.token=''
+    }
+  
    
   },
   actions: {
@@ -33,24 +30,22 @@ export default new Vuex.Store({
     },
     connexionBase(context, infos) {
       axios.post("http://localhost:9000/connexion", infos).then((resp) => {
-        //console.log("connexionBase",resp.data);
+        console.log("connexionBase",resp.data);
         localStorage.setItem("jwt", resp.data);
        axios.defaults.headers.common["authorization"] = resp.data;
      
         //context.commit("auth_succes", resp.data);
       });
+     
     },
+     deco(context){
+        context.commit("deco")
+      },
     
     priceHide(context){
       context.commit("priceHide")
     },
-    connexionHide(context){
-      context.commit("connnexionHide")
-    },
-    profilShow(context){
-      context.commit("profilShow")
-    }
-
+   
   },
   modules: {
   }
