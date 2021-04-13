@@ -58,15 +58,16 @@
       <button id="signInButton" v-if="inscription" @click="inscriptionBase() ; checkForm()">
         S'inscrire
       </button>
-      <button id="signUpButton" v-if="connexion " @click="connexionBase ; showIco">
+      <button id="signUpButton" v-if="connexion " @click="connexionBase() ; showIco()">
         Se connecter
       </button>
        <p v-if="errors.length">
     <b>Merci de corriger le(s) erreur(s) suivante(s):</b>
     <ul>
-      <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+      <li class="listError" v-for="error in errors" v-bind:key="error">{{ error }}</li>
     </ul>
   </p>
+  <p class="mailError">{{this.$store.state.erreur}}</p>
     </div>
   </div>
 </template>
@@ -142,7 +143,6 @@ export default {
           if (res.status === 200) {
             self.$session.start();
             self.$session.set("jwt", res.data);
-            //self.http.headers['authorization'] = 'Bearer ' + res.data
           }
         })
         .then(this.toggleModal)
@@ -229,5 +229,13 @@ button:hover {
   transform: translate(5px, 5px);
   background-color: #474130;
   box-shadow: 5px 5px 5px grey;
+}
+.mailError{
+  color : red;
+  font-weight: bold;
+}
+.listError{
+font-weight: bold;
+list-style: none;
 }
 </style>

@@ -9,6 +9,7 @@ export default new Vuex.Store({
     menuShow:true,
     token:localStorage.getItem('jwt') || '',
     iconShow: false,
+    erreur:""
    
   
   },
@@ -21,12 +22,17 @@ export default new Vuex.Store({
     },
     show(state){
         state.iconShow = true
+    },
+    setError(state,item){
+      state.erreur = item
+      
     }
   },
   actions: {
-    inscriptionBase(content, infos) {
+    inscriptionBase(context, infos) {
       axios.post("http://localhost:9000/inscription", infos).then((resp) => {
         console.log(resp.data);
+        context.commit("setError",resp.data.message)
         //context.commit('auth_succes',resp.data)
       });
     },
