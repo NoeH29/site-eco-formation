@@ -30,7 +30,7 @@
           <li><a href="#">réseau sociaux</a></li>
         </ul>
       </li>
-      <li id="loginHome">
+      <li v-if="this.$store.state.iconNotShow" class="loginHome">
         <button v-on:click="toggleModal('in')" id="signInButton">
           S'inscrire
         </button>
@@ -38,7 +38,7 @@
           Se connecter
         </button>
       </li>
-      <li v-if="show" id="icon">
+      <li v-else class="loginHome">
         <router-link to="/panier"
           ><i class="fas fa-shopping-basket"></i
         ></router-link>
@@ -65,7 +65,6 @@ export default {
       inscription: false,
       connexion: false,
       titre: "",
-     show:this.$store.state.iconShow
     
     };
   },
@@ -87,24 +86,11 @@ export default {
         console.log(this.$store.state.token)
       }
     },
-   /* show:function(){
-      console.log(localStorage.getItem('keys'))
-      if(localStorage.getItem('vue-session-key')!=''){
-      document.getElementById("icon").style.display='block';
-      } else{
-         document.getElementById("icon").style.display='none';
-      }
-    },
-     hide:function(){
-      console.log(localStorage.getItem('vue-session-key'))
-      if(localStorage.getItem('vue-session-key')!=''){
-      document.getElementById("loginHome").style.display='none';
-      } else{
-         document.getElementById("loginHome").style.display='block';
-      }
-    },*/
+
     deco: function () {
-      this.$session.destroy()
+      console.log("toto")
+        localStorage.removeItem('jwt')
+        document.location.reload();
        this.$router.push('/burger')
 
     },
@@ -118,7 +104,7 @@ nav {
   width: 100%;
 }
 
-#loginHome {
+.loginHome {
   display: flex;
   justify-content: space-evenly;
   width: 25%;

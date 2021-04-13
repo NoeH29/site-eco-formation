@@ -8,8 +8,8 @@ export default new Vuex.Store({
   state: {
     menuShow:true,
     token:localStorage.getItem('jwt') || '',
-    iconShow: false,
-    erreur:""
+    iconNotShow: true,
+    erreur:null
    
   
   },
@@ -21,7 +21,7 @@ export default new Vuex.Store({
       state.token=''
     },
     show(state){
-        state.iconShow = true
+        state.iconNotShow = false
     },
     setError(state,item){
       state.erreur = item
@@ -40,9 +40,9 @@ export default new Vuex.Store({
       axios.post("http://localhost:9000/connexion", infos).then((resp) => {
         console.log("connexionBase",resp.data);
         localStorage.setItem("jwt", resp.data);
+        context.commit("show")
        axios.defaults.headers.common["authorization"] = resp.data;
-     
-        //context.commit("auth_succes", resp.data);
+
       });
      
     },
@@ -53,9 +53,7 @@ export default new Vuex.Store({
     priceHide(context){
       context.commit("priceHide")
     },
-    show(context){
-      context.commit("show")
-    }
+    
    
   },
   modules: {

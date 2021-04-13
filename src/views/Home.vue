@@ -20,7 +20,7 @@
     <p>
       Le restaurant vous accueille avec ses 42 places assises pour savourer
       <span> une cuisine locale </span> composée de produits du terroir (viande
-      local, frommage de chèvre, produits de saison..) frais et de qualité.
+      local, fromage de chèvre, produits de saison..) frais et de qualité.
     </p>
     <p>
       Tout est <span> cuisiné maison </span> et vous pourrez déguster un burger
@@ -64,7 +64,7 @@ export default {
           image: require("@/assets/photoBurger/burger5.jpg"),
         },
       ],
-      session:this.$session.getAll(),
+      session:this.$store.state.token,
     };
   },
   components: {

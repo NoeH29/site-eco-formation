@@ -20,16 +20,16 @@
         v-model="password"
         placeholder="Mot de passe"
       />
-      <p v-if="connexion">Pas encore inscrit ? <a href="">clique ici.</a></p>
+      <p v-if="connexion">Pas encore inscrit ?<button class="smallBtn" @click="changeModal('in')" >clique ici.</button></p>
 
       <div id="inscription" v-if="inscription">
-        <!-- <input
+         <input
           type="password"
           id="confPassword"
           name="confPassword"
           v-model="confPassword"
           placeholder="confirmation de mot de passe"
-        /> -->
+        /> 
     
         <input
           type="text"
@@ -53,21 +53,18 @@
           v-model="telephone"
           placeholder="téléphone"
         />
-        <p>Déjà inscrit ? <a href="">clique ici.</a></p>
+        <p>Déjà inscrit ? <button class="smallBtn" @click="changeModal('up')">clique ici.</button></p>
       </div>
       <button id="signInButton" v-if="inscription" @click="inscriptionBase() ; checkForm()">
         S'inscrire
       </button>
-      <button id="signUpButton" v-if="connexion " @click="connexionBase() ; showIco()">
+      <button id="signUpButton" v-if="connexion " @click="connexionBase() ;checkFormCon()">
         Se connecter
       </button>
-       <p v-if="errors.length">
-    <b>Merci de corriger le(s) erreur(s) suivante(s):</b>
-    <ul>
-      <li class="listError" v-for="error in errors" v-bind:key="error">{{ error }}</li>
-    </ul>
+       <p v-if="errors" class="listError">champ(s) manquant(s)
+    
   </p>
-  <p class="mailError">{{this.$store.state.erreur}}</p>
+  <p  v-if="this.$store.state.erreur" class="mailError">{{this.$store.state.erreur}}</p>
     </div>
   </div>
 </template>
@@ -76,7 +73,7 @@
 export default {
   data: function() {
     return {
-      errors: [],
+      errors: false,
       nom: "",
       prenom: "",
       mail: "",
@@ -94,28 +91,42 @@ export default {
       if (this.mail && this.password && this.nom && this.prenom && this.telephone) {
         return true;
       }
-      this.errors = [];
+     
        if (!this.mail) {
-        this.errors.push('E-mail requis.');
+      this.errors =true
         document.getElementById("mail").style.borderColor="red";
       } 
          if (!this.password) {
-        this.errors.push('Mot de passe requis.');
+       this.errors =true
         document.getElementById("password").style.borderColor="red";
       }
       if (!this.nom) {
-        this.errors.push('Nom requis.');
+        this.errors =true
         document.getElementById("nom").style.borderColor="red";
       }
       if (!this.prenom) {
-        this.errors.push('prenom requis.');
+       this.errors =true
          document.getElementById("prenom").style.borderColor="red";
       }
          if (!this.telephone) {
-        this.errors.push('telephone requis.');
+       this.errors =true
         document.getElementById("telephone").style.borderColor="red";
       }
 
+    },
+    checkFormCon:function(){
+       if (this.mail && this.password) {
+        return true;
+      }
+       this.errors = [];
+       if (!this.mail) {
+        this.errors =true
+        document.getElementById("mail").style.borderColor="red";
+      } 
+         if (!this.password) {
+        this.errors =true
+        document.getElementById("password").style.borderColor="red";
+      }
     },
     inscriptionBase: function() {
       let info = {
@@ -125,38 +136,42 @@ export default {
         prenom: this.prenom,
         telephone: this.telephone,
       };
+      
       if(this.mail != '' && this.password != '' && this.nom != '' && this.prenom != '' && this.telephone != ''){ 
-        this.$store.dispatch("inscriptionBase", info);
+        if(this.password != this.confPassword){
+          console.log("erreur ")
+        } else{
+          this.$store.dispatch("inscriptionBase", info)
+           .then(this.toggleModal)
+       .then(() => this.goConnect)
+        .catch((err) => console.log(err));
+
+        }
         } else{
          console.log("il manque un champs")
     }
     },
     connexionBase: function() {
-      let self = this;
-      this.http
-        .post("http://localhost:9000/connexion", {
-          mail: this.mail,
-          password: this.password,
-        })
-        .then(function(res) {
-          console.log(res.data)
-          if (res.status === 200) {
-            self.$session.start();
-            self.$session.set("jwt", res.data);
-          }
-        })
+       if(this.mail != '' && this.password != '' ){
+         const mail = this.mail;
+         const password = this.password;
+      this.$store.dispatch("connexionBase",{mail,password}) 
         .then(this.toggleModal)
-        .then(() => this.$router.push("/").catch(()=>{}))
-       // .then(()=>document.location.reload())
+       .then(() => this.$router.push("/").catch(()=>{}))
         .catch((err) => console.log(err));
-      /*this.$store
-        .dispatch("connexionBase", { mail, password })
-        .then(this.toggleModal)
-        .then(() => this.$router.push("/"))
-        .catch((err) => console.log(err));*/
+     }
     },
-    showIco:function(){
-        this.$store.dispatch("show");
+    changeModal:function(signState){  
+         if (signState === 'up') {
+        this.connexion = true;
+        this.inscription = false;
+        
+      }
+      if (signState === 'in') {
+        this.inscription = true;
+        this.connexion = false;
+       
+      }
     }
   },
 };
@@ -184,13 +199,13 @@ export default {
 }
 .modal {
   border-radius: 10px;
-  height: 440px;
+  height: auto;
   width: 500px;
   background: #f1f1f1;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   position: fixed;
   padding: 50px;
-  top: 25%;
+  top: 10%;
   display: flex;
   flex-direction: column;
 }
@@ -237,5 +252,22 @@ button:hover {
 .listError{
 font-weight: bold;
 list-style: none;
+}
+.smallBtn{
+  height: 20px;
+  width: auto;
+  background : rgba(255, 0, 0, 0);
+   border:none;
+  cursor: pointer;
+  font-weight: unset;
+ 
+  color:black;
+}
+.smallBtn:hover{
+ transform: none;
+ background : rgba(255, 0, 0, 0);
+ box-shadow:none;
+font-weight: bold;
+
 }
 </style>
