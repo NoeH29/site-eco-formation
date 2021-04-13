@@ -11,7 +11,6 @@ export default new Vuex.Store({
     token:localStorage.getItem('jwt') || '',
     iconNotShow: true,
     erreur:null,
-    menuShow: true,
     panier: [],
     sequenceMenu: [],
     menuCount: 0,
@@ -20,9 +19,6 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    priceHide(state){
-      state.menuShow = false
-    },
     deco(state){
       state.token=''
     },
