@@ -30,14 +30,7 @@
           v-model="confPassword"
           placeholder="confirmation de mot de passe"
         /> -->
-        <input
-          type="text"
-          id="pseudo"
-          name="pseudo"
-          v-model="pseudo"
-          placeholder="pseudo"
-        />
-
+    
         <input
           type="text"
           id="nom"
@@ -62,12 +55,18 @@
         />
         <p>Déjà inscrit ? <a href="">clique ici.</a></p>
       </div>
-      <button id="signInButton" v-if="inscription" @click="inscriptionBase">
+      <button id="signInButton" v-if="inscription" @click="inscriptionBase() ; checkForm()">
         S'inscrire
       </button>
-      <button id="signUpButton" v-if="connexion" @click="connexionBase">
+      <button id="signUpButton" v-if="connexion " @click="connexionBase ; showIco">
         Se connecter
       </button>
+       <p v-if="errors.length">
+    <b>Merci de corriger le(s) erreur(s) suivante(s):</b>
+    <ul>
+      <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+    </ul>
+  </p>
     </div>
   </div>
 </template>
@@ -76,6 +75,7 @@
 export default {
   data: function() {
     return {
+      errors: [],
       nom: "",
       prenom: "",
       mail: "",
@@ -89,6 +89,33 @@ export default {
   props: ["revele", "toggleModal", "inscription", "connexion", "titre"],
 
   methods: {
+     checkForm: function () {
+      if (this.mail && this.password && this.nom && this.prenom && this.telephone) {
+        return true;
+      }
+      this.errors = [];
+       if (!this.mail) {
+        this.errors.push('E-mail requis.');
+        document.getElementById("mail").style.borderColor="red";
+      } 
+         if (!this.password) {
+        this.errors.push('Mot de passe requis.');
+        document.getElementById("password").style.borderColor="red";
+      }
+      if (!this.nom) {
+        this.errors.push('Nom requis.');
+        document.getElementById("nom").style.borderColor="red";
+      }
+      if (!this.prenom) {
+        this.errors.push('prenom requis.');
+         document.getElementById("prenom").style.borderColor="red";
+      }
+         if (!this.telephone) {
+        this.errors.push('telephone requis.');
+        document.getElementById("telephone").style.borderColor="red";
+      }
+
+    },
     inscriptionBase: function() {
       let info = {
         mail: this.mail,
@@ -97,7 +124,11 @@ export default {
         prenom: this.prenom,
         telephone: this.telephone,
       };
-      this.$store.dispatch("inscriptionBase", info);
+      if(this.mail != '' && this.password != '' && this.nom != '' && this.prenom != '' && this.telephone != ''){ 
+        this.$store.dispatch("inscriptionBase", info);
+        } else{
+         console.log("il manque un champs")
+    }
     },
     connexionBase: function() {
       let self = this;
@@ -116,6 +147,7 @@ export default {
         })
         .then(this.toggleModal)
         .then(() => this.$router.push("/").catch(()=>{}))
+       // .then(()=>document.location.reload())
         .catch((err) => console.log(err));
       /*this.$store
         .dispatch("connexionBase", { mail, password })
@@ -123,6 +155,9 @@ export default {
         .then(() => this.$router.push("/"))
         .catch((err) => console.log(err));*/
     },
+    showIco:function(){
+        this.$store.dispatch("show");
+    }
   },
 };
 </script>

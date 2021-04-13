@@ -38,13 +38,13 @@
           Se connecter
         </button>
       </li>
-      <li>
+      <li v-if="show" id="icon">
         <router-link to="/panier"
           ><i class="fas fa-shopping-basket"></i
         ></router-link>
         <router-link to="/profil"><i class="fas fa-user"></i></router-link>
       </li>
-      <li><button @click="deco">deco</button></li>
+      <li class="deco"><button @click="deco">deco</button></li>
     </ul>
     <Connexion
       v-bind:revele="revele"
@@ -65,8 +65,7 @@ export default {
       inscription: false,
       connexion: false,
       titre: "",
-      //  hideConnec:this.$store.state.token,
-      // showProfil:this.$store.state.show,
+     show:this.$store.state.iconShow
     
     };
   },
@@ -82,12 +81,28 @@ export default {
         this.titre = "CONNEXION";
       }
       if (signState === "in") {
-       /* this.inscription = true;
+        this.inscription = true;
         this.connexion = false;
-        this.titre = "INSCRIPTION";*/
+        this.titre = "INSCRIPTION";
         console.log(this.$store.state.token)
       }
     },
+   /* show:function(){
+      console.log(localStorage.getItem('keys'))
+      if(localStorage.getItem('vue-session-key')!=''){
+      document.getElementById("icon").style.display='block';
+      } else{
+         document.getElementById("icon").style.display='none';
+      }
+    },
+     hide:function(){
+      console.log(localStorage.getItem('vue-session-key'))
+      if(localStorage.getItem('vue-session-key')!=''){
+      document.getElementById("loginHome").style.display='none';
+      } else{
+         document.getElementById("loginHome").style.display='block';
+      }
+    },*/
     deco: function () {
       this.$session.destroy()
        this.$router.push('/burger')
@@ -235,5 +250,10 @@ button:hover:after {
 }
 .fas {
   font-size: 30px;
+}
+
+.deco{
+display: flex;
+
 }
 </style>

@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     menuShow:true,
     token:localStorage.getItem('jwt') || '',
+    iconShow: false,
    
   
   },
@@ -17,9 +18,10 @@ export default new Vuex.Store({
     },
     deco(state){
       state.token=''
+    },
+    show(state){
+        state.iconShow = true
     }
-  
-   
   },
   actions: {
     inscriptionBase(content, infos) {
@@ -45,6 +47,9 @@ export default new Vuex.Store({
     priceHide(context){
       context.commit("priceHide")
     },
+    show(context){
+      context.commit("show")
+    }
    
   },
   modules: {
