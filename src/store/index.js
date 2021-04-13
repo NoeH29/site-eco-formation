@@ -7,21 +7,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-<<<<<<< HEAD
     menuShow:true,
     token:localStorage.getItem('jwt') || '',
     iconNotShow: true,
-    erreur:null
-   
-  
-=======
+    erreur:null,
     menuShow: true,
     panier: [],
     sequenceMenu: [],
     menuCount: 0,
     curentMenu: null,
     //token:localStorage.getItem('jwt') || ''
->>>>>>> a2cfadae8ce9ab7538bb9ab03d2329bfb806a77f
   },
 
   mutations: {
@@ -37,7 +32,7 @@ export default new Vuex.Store({
     setError(state,item){
       state.erreur = item
       
-    }
+    },
     priceHide(state) {
       state.menuShow =! state.menuShow;
     },
