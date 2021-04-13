@@ -2,12 +2,12 @@
   <nav>
     <ul>
       <li>
-        <router-link to="/home" id="logo">
+        <router-link to="/" id="logo">
           <img src="../assets/burger.svg" /> Home</router-link
         >
       </li>
       <li class="deroulant">
-        <router-link to="/about">menus</router-link>
+        <router-link to="/menus">menus</router-link>
         <ul class="sous">
           <li><a href="#">menus enfants</a></li>
           <li><a href="#">menus xl</a></li>
@@ -17,20 +17,21 @@
       <li class="deroulant">
         <router-link to="/cartes">cartes</router-link>
         <ul class="sous">
-          <li><a href="#">burgers</a></li>
-          <li><a href="#">boissons</a></li>
-          <li><a href="#">accompagnements</a></li>
+          <li>
+            <router-link to="/burger">Burger</router-link>
+          </li>
+          <li>
+            <router-link to="/boisson">Boissons</router-link>
+          </li>
+          <li>
+            <router-link to="/accompagnement">Accompagnements</router-link>
+          </li>
         </ul>
       </li>
       <li class="deroulant">
         <router-link to="/contact">contact</router-link>
-        <ul class="sous">
-          <li><a href="#">localisation</a></li>
-          <li><a href="#">numéro</a></li>
-          <li><a href="#">réseau sociaux</a></li>
-        </ul>
       </li>
-      <li id="loginHome">
+      <li v-if="this.$store.state.iconNotShow" class="loginHome">
         <button v-on:click="toggleModal('in')" id="signInButton">
           S'inscrire
         </button>
@@ -38,6 +39,13 @@
           Se connecter
         </button>
       </li>
+      <li v-else class="loginHome">
+        <router-link to="/panier"
+          ><i class="fas fa-shopping-basket"></i
+        ></router-link>
+        <router-link to="/profil"><i class="fas fa-user"></i></router-link>
+      </li>
+      <li class="deco"><button @click="deco">deco</button></li>
     </ul>
     <Connexion
       v-bind:revele="revele"
@@ -58,13 +66,14 @@ export default {
       inscription: false,
       connexion: false,
       titre: "",
+    
     };
   },
   components: {
     Connexion,
   },
   methods: {
-    toggleModal: function(signState) {
+    toggleModal: function (signState) {
       this.revele = !this.revele;
       if (signState === "up") {
         this.connexion = true;
@@ -75,7 +84,16 @@ export default {
         this.inscription = true;
         this.connexion = false;
         this.titre = "INSCRIPTION";
+        console.log(this.$store.state.token)
       }
+    },
+
+    deco: function () {
+      console.log("toto")
+        localStorage.removeItem('jwt')
+        document.location.reload();
+       this.$router.push('/burger')
+
     },
   },
 };
@@ -87,11 +105,11 @@ nav {
   width: 100%;
 }
 
-#loginHome {
+.loginHome {
   display: flex;
   justify-content: space-evenly;
-  width: 15%;
-  left: 6%;
+  width: 25%;
+  left: 10%;
 }
 
 nav ul {
@@ -122,7 +140,7 @@ nav ul::after {
   display: inline-flex;
   align-items: center;
   position: relative;
-  top:-200%;
+  top: -200%;
   left: -35%;
   font-size: 30px;
   height: 10vh;
@@ -161,8 +179,7 @@ nav > ul li:hover .sous {
 }
 .sous li {
   width: 100%;
-  padding:10px;
-  
+  padding: 10px;
 }
 .sous a {
   padding: 10px;
@@ -173,14 +190,57 @@ nav > ul li:hover .sous {
   content: " ▼";
   font-size: 12px;
 }
+
+button,
+button::after {
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
 button {
-  height: 25px;
-  background-color: #5f5439b9;
-  border-radius: 5px;
-  cursor: pointer;
+  left: -50px;
+  background: none;
+  border: 4px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+  display: block;
+  font-size: 16px;
+  padding: 5px 10px 20px 10px;
   font-weight: bold;
+  position: relative;
+}
+
+button::before,
+button::after {
+  background: white;
+  content: "";
+  position: absolute;
+  z-index: -1;
 }
 button:hover {
-  background-color: #2c2719b9;
+  color: #806c3f;
+  cursor: pointer;
+}
+button::after {
+  height: 0;
+  left: 50%;
+  top: 50%;
+  width: 0;
+}
+button:hover:after {
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.fas {
+  font-size: 30px;
+}
+
+.deco{
+display: flex;
+
 }
 </style>

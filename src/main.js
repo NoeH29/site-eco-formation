@@ -5,9 +5,14 @@ import router from "./router";
 import session from "vue-session";
 import store from './store'
 
-Vue.use(session);
+
+var options = {
+  persist: true
+}
+
+Vue.use(session,options);
 Vue.config.productionTip = false;
-Vue.prototype.http = Axios;
+Vue.prototype.http=Axios;
 
 
 new Vue({

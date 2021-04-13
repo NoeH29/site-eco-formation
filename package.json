@@ -9,10 +9,13 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "carousel": "0.0.3",
     "core-js": "^3.9.1",
+    "jquery": "^3.6.0",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
     "vue-session": "^1.0.0",
+    "vueperslides": "^2.13.0",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
