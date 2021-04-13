@@ -1,13 +1,13 @@
 <template>
   <div id="burger">
-    <div id="allCard" v-for="burger in burgers" v-bind:key="burger.id">
-      <div id="cardBurger">
+    <div class="cardContainer">
+      <div class="card" v-for="burger in burgers" v-bind:key="burger.id">
         <img :src="require('@/assets/photoBurger/' + burger.photo_produit)" />
         <h4>{{ burger.nom_produit }} :</h4>
-        <p>{{ burger.description }}</p>
-        <p v-if="menu">{{ burger.prix_produit }}€</p>
-        <button v-if="menu">Ajouter</button>
-        <button v-else @click="goAccompagnement">Ajouter2</button>
+        <p>{{ burger.description_produit }}</p>
+        <p v-if="notMenu">{{ burger.prix_produit }}€</p>
+        <button v-if="notMenu" v-on:click="addToPanier(burger)">Ajouter</button>
+        <button v-else @click="goNextMenuItem(burger)">Ajouter2</button>
       </div>
     </div>
   </div>
@@ -19,19 +19,36 @@ export default {
   data: function () {
     return {
       burgers: null,
-      menu: this.$store.state.menuShow,
+      notMenu: this.$store.state.menuShow,
     };
   },
   methods: {
-    goAccompagnement: function () {
-      this.$router.push("/accompagnements");
+    goNextMenuItem: function (burger) {
+      if (this.$store.state.menuCount < this.$store.state.sequenceMenu.length) {
+        console.log(burger);
+        this.$store.dispatch("pushToMenu", burger);
+        var count = this.$store.state.menuCount;
+        var firstItemMenu = this.$store.state.sequenceMenu[count].nom_categ;
+        this.$store.commit("incrementMenuCount");
+        console.log(this.$store.state.sequenceMenu);
+        this.$router.push("/" + firstItemMenu);
+      } else {
+        this.$store.dispatch("pushToMenu", burger);
+        this.$store.commit("pushMenuToPanier");
+        this.$store.dispatch("priceHide");
+        this.$router.push("/panier");
+      }
+    },
+    addToPanier: function (burger) {
+      console.log(burger);
+      this.$store.dispatch("pushToPanier", burger);
     },
   },
   mounted: function () {
     this.http
       .get("http://localhost:9000/burgers")
       .then((response) => {
-        // console.log("response.data",response.data);
+        console.log(response.data.burger);
         this.burgers = response.data.burger;
       })
       .catch((error) => {
@@ -42,29 +59,9 @@ export default {
 </script>
 
 <style scoped>
-#allCard {
-  display: inline-flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100vh;
-}
-#cardBurger {
-  height: 300px;
-  width: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  clip-path: inset(0% 0 0 0 round 25% 0 25% 0);
-  background: whitesmoke;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
-    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
-    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
-  padding-bottom: 2%;
-  align-items: center;
-}
 img {
-  clip-path: inset(0% 0 0 0 round 25% 0 25% 0);
-  height: 30%;
+  clip-path: inset(0 0 20% 0 round 25% 0 25% 0);
+  width: 90%;
 }
 button {
   width: 30%;

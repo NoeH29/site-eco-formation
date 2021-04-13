@@ -1,18 +1,29 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
+//import router from "../router/index.js";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+<<<<<<< HEAD
     menuShow:true,
     token:localStorage.getItem('jwt') || '',
     iconNotShow: true,
     erreur:null
    
   
+=======
+    menuShow: true,
+    panier: [],
+    sequenceMenu: [],
+    menuCount: 0,
+    curentMenu: null,
+    //token:localStorage.getItem('jwt') || ''
+>>>>>>> a2cfadae8ce9ab7538bb9ab03d2329bfb806a77f
   },
+
   mutations: {
     priceHide(state){
       state.menuShow = false
@@ -27,6 +38,29 @@ export default new Vuex.Store({
       state.erreur = item
       
     }
+    priceHide(state) {
+      state.menuShow =! state.menuShow;
+    },
+    pushToPanier(state, item) {
+      state.panier.push(item);
+    },
+    createMenu(state, item) {
+      state.curentMenu = item;
+    },
+    pushToMenu(state, item) {
+      state.curentMenu.push(item);
+    },
+    pushMenuToPanier(state) {
+      state.menuCount = 0;
+      state.sequenceMenu = [];
+      state.panier.push({ curentMenu: state.curentMenu });
+    },
+    pushToSequence(state, item) {
+      state.sequenceMenu = item;
+    },
+    incrementMenuCount(state) {
+      state.menuCount++;
+    },
   },
   actions: {
     inscriptionBase(context, infos) {
@@ -49,13 +83,25 @@ export default new Vuex.Store({
      deco(context){
         context.commit("deco")
       },
-    
-    priceHide(context){
-      context.commit("priceHide")
-    },
-    
    
+    priceHide(context) {
+      context.commit("priceHide");
+    },
+    pushToPanier(context, item) {
+      context.commit("pushToPanier", item);
+    },
+    createMenu(context, item) {
+      context.commit("createMenu", item);
+    },
+    pushToMenu(context, item) {
+      context.commit("pushToMenu", item);
+    },
+    getMenuParams(context, infos) {
+      axios.post("http://localhost:9000/menuparams", infos).then((resp) => {
+        //console.log(resp.data);
+        context.commit("pushToSequence", resp.data.menuparams);
+      });
+    },
   },
-  modules: {
-  }
-})
+  modules: {},
+});

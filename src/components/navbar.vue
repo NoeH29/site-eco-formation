@@ -17,18 +17,19 @@
       <li class="deroulant">
         <router-link to="/cartes">cartes</router-link>
         <ul class="sous">
-          <li><a href="/burger">burgers</a></li>
-          <li><a href="/boissons">boissons</a></li>
-          <li><a href="/accompagnements">accompagnements</a></li>
+          <li>
+            <router-link to="/burger">Burger</router-link>
+          </li>
+          <li>
+            <router-link to="/boisson">Boissons</router-link>
+          </li>
+          <li>
+            <router-link to="/accompagnement">Accompagnements</router-link>
+          </li>
         </ul>
       </li>
       <li class="deroulant">
         <router-link to="/contact">contact</router-link>
-        <ul class="sous">
-          <li><a href="#">localisation</a></li>
-          <li><a href="#">numéro</a></li>
-          <li><a href="#">réseau sociaux</a></li>
-        </ul>
       </li>
       <li v-if="this.$store.state.iconNotShow" class="loginHome">
         <button v-on:click="toggleModal('in')" id="signInButton">

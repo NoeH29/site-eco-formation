@@ -150,6 +150,7 @@ export default {
         } else{
          console.log("il manque un champs")
     }
+      this.$store.dispatch("inscriptionBase", info);
     },
     connexionBase: function() {
        if(this.mail != '' && this.password != '' ){
