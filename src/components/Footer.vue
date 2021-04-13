@@ -38,7 +38,6 @@ export default {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
-
 }
 img {
   cursor: pointer;

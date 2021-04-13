@@ -2,6 +2,7 @@
 <template>
   <div id="app">
     <Navbar />
+
     <router-view />
     <Footer />
   </div>
@@ -44,13 +45,28 @@ body {
 #foot {
   grid-area: footer;
 }
-#inscription {
-  grid-area: main;
-}
-#connexion {
-  grid-area: main;
-}
+
 nav {
   grid-area: nav;
+}
+.cardContainer {
+  display: inline-flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+.card {
+  height: 500px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+  background: whitesmoke;
+  padding-bottom: 2%;
+  align-items: center;
+  margin: 50px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 </style>

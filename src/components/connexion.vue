@@ -98,6 +98,7 @@ export default {
         prenom: this.prenom,
         telephone: this.telephone,
       };
+      
       this.$store.dispatch("inscriptionBase", info);
     },
     connexionBase: function() {

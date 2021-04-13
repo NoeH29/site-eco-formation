@@ -17,18 +17,19 @@
       <li class="deroulant">
         <router-link to="/cartes">cartes</router-link>
         <ul class="sous">
-          <li><a href="/burger">burgers</a></li>
-          <li><a href="/boissons">boissons</a></li>
-          <li><a href="/accompagnements">accompagnements</a></li>
+          <li>
+            <router-link to="/burger">Burger</router-link>
+          </li>
+          <li>
+            <router-link to="/boisson">Boissons</router-link>
+          </li>
+          <li>
+            <router-link to="/accompagnement">Accompagnements</router-link>
+          </li>
         </ul>
       </li>
       <li class="deroulant">
         <router-link to="/contact">contact</router-link>
-        <ul class="sous">
-          <li><a href="#">localisation</a></li>
-          <li><a href="#">numéro</a></li>
-          <li><a href="#">réseau sociaux</a></li>
-        </ul>
       </li>
       <li id="loginHome">
         <button v-on:click="toggleModal('in')" id="signInButton">
@@ -37,6 +38,9 @@
         <button v-on:click="toggleModal('up')" id="signUpButton">
           Se connecter
         </button>
+      </li>
+      <li class="deroulant">
+        <router-link to="/panier">Panier</router-link>
       </li>
     </ul>
     <Connexion
@@ -64,7 +68,7 @@ export default {
     Connexion,
   },
   methods: {
-    toggleModal: function(signState) {
+    toggleModal: function (signState) {
       this.revele = !this.revele;
       if (signState === "up") {
         this.connexion = true;
@@ -91,7 +95,7 @@ nav {
   display: flex;
   justify-content: space-evenly;
   width: 25%;
-  left:10%;
+  left: 10%;
 }
 
 nav ul {
@@ -122,7 +126,7 @@ nav ul::after {
   display: inline-flex;
   align-items: center;
   position: relative;
-  top:-200%;
+  top: -200%;
   left: -35%;
   font-size: 30px;
   height: 10vh;
@@ -161,8 +165,7 @@ nav > ul li:hover .sous {
 }
 .sous li {
   width: 100%;
-  padding:10px;
-  
+  padding: 10px;
 }
 .sous a {
   padding: 10px;
@@ -174,49 +177,48 @@ nav > ul li:hover .sous {
   font-size: 12px;
 }
 
- button,
-      button::after {
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      -o-transition: all 0.3s;
-      transition: all 0.3s;
-      }
+button,
+button::after {
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
 
-   button {
-     left:-50px;
-      background: none;
-      border: 4px solid #fff;
-      border-radius: 10px;
-      color: #fff;
-      display: block;
-      font-size: 16px;
-      padding:5px 10px 20px 10px;
-      font-weight: bold;
-      position: relative;
-      }
-  
-      button::before,
-      button::after {
-    background: white;
-      content: '';
-      position: absolute;
-      z-index: -1;
+button {
+  left: -50px;
+  background: none;
+  border: 4px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+  display: block;
+  font-size: 16px;
+  padding: 5px 10px 20px 10px;
+  font-weight: bold;
+  position: relative;
+}
 
-      }
-      button:hover {
-      color: #806c3f;
-      cursor: pointer;
-      }
-  button::after {
-      height: 0;
-      left: 50%;
-      top: 50%;
-      width: 0;
-      }
-      button:hover:after {
-      height: 100%;
-      left: 0;
-      top: 0;
-      width: 100%;
-      }
+button::before,
+button::after {
+  background: white;
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+button:hover {
+  color: #806c3f;
+  cursor: pointer;
+}
+button::after {
+  height: 0;
+  left: 50%;
+  top: 50%;
+  width: 0;
+}
+button:hover:after {
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
 </style>

@@ -1,17 +1,19 @@
 <template>
   <div id="accompagnements">
-    <div
-      id="allCard"
-      v-for="accompagnement in accompagnements"
-      v-bind:key="accompagnement.id"
-    >
-      <div id="cardaccompagnement">
+    <div class="cardContainer">
+      <div
+        class="card"
+        v-for="accompagnement in accompagnements"
+        v-bind:key="accompagnement.id"
+      >
         <img :src="require('@/assets/acc/' + accompagnement.photo_produit)" />
         <h4>{{ accompagnement.nom_produit }} :</h4>
-        <p>{{ accompagnement.description }}</p>
-        <p v-if="menu">{{ accompagnement.prix_produit }}€</p>
-        <button v-if="menu">Ajouter</button>
-        <button v-else @click="goBoisson">Ajouter2</button>
+        <p>{{ accompagnement.description_produit }}</p>
+        <p v-if="notMenu">{{ accompagnement.prix_produit }}€</p>
+        <button v-if="notMenu" @click="addToPanier(accompagnement)">
+          Ajouter
+        </button>
+        <button v-else @click="goNextMenuItem(accompagnement)">Ajouter2</button>
       </div>
     </div>
   </div>
@@ -23,12 +25,28 @@ export default {
   data: function () {
     return {
       accompagnements: null,
-      menu: this.$store.state.menuShow,
+      notMenu: this.$store.state.menuShow,
     };
   },
   methods: {
-    goBoisson: function () {
-      this.$router.push("/boissons");
+    goNextMenuItem: function (accompagnement) {
+      if (this.$store.state.menuCount < this.$store.state.sequenceMenu.length) {
+        this.$store.dispatch("pushToMenu", accompagnement);
+        var count = this.$store.state.menuCount;
+        var firstItemMenu = this.$store.state.sequenceMenu[count].nom_categ;
+        this.$store.commit("incrementMenuCount");
+        console.log(this.$store.state.sequenceMenu);
+        this.$router.push("/" + firstItemMenu);
+      } else {
+        this.$store.dispatch("pushToMenu", accompagnement);
+        this.$store.commit("pushMenuToPanier");
+        this.$store.dispatch("priceHide");
+        this.$router.push("/panier");
+      }
+    },
+    addToPanier: function (accompagnement) {
+      console.log(accompagnement);
+      this.$store.dispatch("pushToPanier", accompagnement);
     },
   },
   mounted: function () {
@@ -48,26 +66,9 @@ export default {
 
 
 <style scoped>
-#allCard {
-  display: inline-flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100vh;
-}
-#cardaccompagnement {
-  height: 300px;
-  width: 200px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  clip-path: inset(0% 0 0 0 round 25% 0 25% 0);
-  background: whitesmoke;
-  align-items: center;
-}
 img {
   clip-path: inset(0% 0 0 0 round 25% 0 25% 0);
-  height: 30%;
+  width: 90%;
 }
 button {
   width: 30%;

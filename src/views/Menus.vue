@@ -1,11 +1,11 @@
 <template>
   <div id="menu">
-    <div id="allCard" v-for="menu in menus" v-bind:key="menu.id">
-      <div id="cardmenu">
-      <img :src="require('@/assets/menus/'+ menu.photo)"> 
-     <h4> {{menu.nom}} :</h4>
-    <p>  {{menu.prix}}€</p>
-    <button @click="goMenu">Séléctionner</button>
+    <div class="cardContainer">
+      <div class="card" v-for="menu in menus" v-bind:key="menu.id">
+        <img :src="require('@/assets/menus/' + menu.photo_menu)" />
+        <h4>{{ menu.nom_menu }} :</h4>
+        <p>{{ menu.prix_menu }}€</p>
+        <button @click="goMenu(menu)">Séléctionner</button>
       </div>
     </div>
   </div>
@@ -19,19 +19,29 @@ export default {
       menus: null,
     };
   },
-  methods:{
-    goMenu:function(){
-       this.$store.dispatch("priceHide");
-     this.$router.push("/burger")
-    }
+  methods: {
+    goMenu: function (menu) {
+      let id = menu.id;
+      this.$store.dispatch("priceHide");
+      this.$store.dispatch("getMenuParams", { id });
+      this.$store.dispatch("createMenu", [menu]);
+    },
+  },
+  watch: {
+    "$store.state.sequenceMenu": function () {
+      var firstItemMenu = this.$store.state.sequenceMenu[0].nom_categ;
+      this.$store.commit("incrementMenuCount");
+      console.log(this.$store.state.sequenceMenu);
+      this.$router.push("/" + firstItemMenu);
+    },
   },
   mounted: function () {
     this.http
       .get("http://localhost:9000/menus")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.menus = response.data.menus;
-        console.log(this.menus);
+        //  console.log(this.menus);
       })
       .catch((error) => {
         console.log(error);
@@ -41,31 +51,13 @@ export default {
 </script>
 
 <style scoped>
-#allCard{
-  display: inline-flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100vh;
-}
-#cardmenu{
-  height:70%;
+img {
+  clip-path: inset(0% 0 0 0 round 25% 0 25% 0);
+  z-index: 0;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
- clip-path:  inset(0% 0 0 0 round 25% 0 25% 0);
-  background:whitesmoke;
-  padding-bottom:2%;
-  align-items: center;
-}
-img{
-  clip-path:  inset(0% 0 0 0 round 25% 0 25% 0);
-
-  z-index:0;
 }
 
-button{
+button {
   width: 35%;
 }
-
 </style>
