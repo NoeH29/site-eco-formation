@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Inscription from "../views/inscription.vue";
 import Contact from "../views/Contact.vue";
 import Home from "../views/Home.vue";
 import Menus from "../views/Menus.vue";
@@ -9,15 +8,12 @@ import Burger from "../components/Burger.vue";
 import Boisson from "../components/Boissons.vue";
 import Accompagnement from "../components/Accompagnement.vue";
 import Panier from "../components/Panier.vue";
-
+import Formulaire from "../components/Formulaire.vue";
+import FormulaireProduit from "../components/FormulaireProduit.vue";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/inscription",
-    name: "Inscription",
-    component: Inscription,
-  },
+
   {
     path: "/contact",
     name: "Contact",
@@ -57,6 +53,16 @@ const routes = [
     path: "/panier",
     name: "Panier",
     component: Panier,
+  },
+  {
+    path: "/formulaire",
+    name: "Formulaire",
+    component: Formulaire,
+  },
+  {
+    path: "/formulaireProduit",
+    name: "FormulaireProduit",
+    component: FormulaireProduit,
   },
 ];
 
