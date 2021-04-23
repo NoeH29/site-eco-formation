@@ -8,8 +8,10 @@ import Burger from "../components/Burger.vue";
 import Boisson from "../components/Boissons.vue";
 import Accompagnement from "../components/Accompagnement.vue";
 import Panier from "../components/Panier.vue";
-import Formulaire from "../components/Formulaire.vue";
+import FormulaireCateg from "../components/FormulaireCateg.vue";
 import FormulaireProduit from "../components/FormulaireProduit.vue";
+import FormulaireMenu from "../components/FormulaireMenu.vue";
+import Formulaire from "../components/Formulaire.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -55,14 +57,24 @@ const routes = [
     component: Panier,
   },
   {
-    path: "/formulaire",
-    name: "Formulaire",
-    component: Formulaire,
+    path: "/formulaireCateg",
+    name: "FormulaireCateg",
+    component: FormulaireCateg,
   },
   {
     path: "/formulaireProduit",
     name: "FormulaireProduit",
     component: FormulaireProduit,
+  },
+  {
+    path: "/formulaireMenu",
+    name: "FormulaireMenu",
+    component: FormulaireMenu,
+  },
+  {
+    path: "/formulaire",
+    name: "Formulaire",
+    component: Formulaire,
   },
 ];
 

@@ -162,6 +162,16 @@ export default {
         .catch((err) => console.log(err));
      }
     },
+       connexionAdmin: function() {
+       if(this.mail != '' && this.password != '' ){
+         const mail = this.mail;
+         const password = this.password;
+      this.$store.dispatch("connexionAdmin",{mail,password}) 
+        .then(this.toggleModal)
+       .then(() => this.$router.push("/").catch(()=>{}))
+        .catch((err) => console.log(err));
+     }
+    },
     changeModal:function(signState){  
          if (signState === 'up') {
         this.connexion = true;

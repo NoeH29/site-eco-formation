@@ -31,6 +31,7 @@
       <li class="deroulant">
         <router-link to="/contact">contact</router-link>
       </li>
+      <li v-if="this.$store.state.formAdmin"> <router-link to="/formulaire">formulaire</router-link></li>
       <li v-if="this.$store.state.iconNotShow" class="loginHome">
         <button v-on:click="toggleModal('in')" id="signInButton">
           S'inscrire

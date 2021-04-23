@@ -7,30 +7,36 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    menuShow:true,
-    token:localStorage.getItem('jwt') || '',
+    menuShow: true,
+    token: localStorage.getItem("jwt") || "",
+    mail: "",
     iconNotShow: true,
-    erreur:null,
+    erreur: null,
     panier: [],
     sequenceMenu: [],
     menuCount: 0,
     curentMenu: null,
-    //token:localStorage.getItem('jwt') || ''
+    formAdmin: false,
   },
 
   mutations: {
-    deco(state){
-      state.token=''
+    deco(state) {
+      state.token = "";
     },
-    show(state){
-        state.iconNotShow = false
+    mail(state, item) {
+      state.mail = item;
     },
-    setError(state,item){
-      state.erreur = item
-      
+    show(state) {
+      state.iconNotShow = false;
+    },
+    admin(state) {
+      state.formAdmin = true;
+    },
+    setError(state, item) {
+      state.erreur = item;
     },
     priceHide(state) {
-      state.menuShow =! state.menuShow;
+      state.menuShow = !state.menuShow;
     },
     pushToPanier(state, item) {
       state.panier.push(item);
@@ -57,24 +63,25 @@ export default new Vuex.Store({
     inscriptionBase(context, infos) {
       axios.post("http://localhost:9000/inscription", infos).then((resp) => {
         console.log(resp.data);
-        context.commit("setError",resp.data.message)
+        context.commit("setError", resp.data.message);
         //context.commit('auth_succes',resp.data)
       });
     },
     connexionBase(context, infos) {
+      console.log(infos);
       axios.post("http://localhost:9000/connexion", infos).then((resp) => {
-        console.log("connexionBase",resp.data);
+        console.log("connexionBase", resp);
         localStorage.setItem("jwt", resp.data);
-        context.commit("show")
-       axios.defaults.headers.common["authorization"] = resp.data;
-
+        context.commit("mail", resp.config.data);
+        context.commit("show");
+        axios.defaults.headers.common["authorization"] = resp.data;
       });
-     
     },
-     deco(context){
-        context.commit("deco")
-      },
-   
+
+    deco(context) {
+      context.commit("deco");
+    },
+
     priceHide(context) {
       context.commit("priceHide");
     },

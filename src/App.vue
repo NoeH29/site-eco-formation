@@ -50,23 +50,31 @@ nav {
   grid-area: nav;
 }
 .cardContainer {
-  display: inline-flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  align-items: center;
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  
 }
 .card {
-  height: 500px;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  height: auto;
+  width: 500px;
   border-radius: 10px;
   background: whitesmoke;
   padding-bottom: 2%;
-  align-items: center;
   margin: 50px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: grid;
+      grid-template-columns: 1fr 1.1fr 0.3fr 1fr;
+  grid-template-rows: 0.5fr 0.5fr 1.5fr 0.5fr;
+  gap: 0px 0px;
+    grid-template-areas:
+    "photo titre titre titre"
+    "photo prix prix prix"
+    "photo description description description"
+    "photo button button button";
+
 }
+
+
 </style>
