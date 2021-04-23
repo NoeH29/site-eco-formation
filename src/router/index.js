@@ -9,6 +9,7 @@ import Burger from "../components/Burger.vue";
 import Boisson from "../components/Boissons.vue";
 import Accompagnement from "../components/Accompagnement.vue";
 import Panier from "../components/Panier.vue";
+import Profil from "../views/Profil.vue";
 
 Vue.use(VueRouter);
 
@@ -57,6 +58,11 @@ const routes = [
     path: "/panier",
     name: "Panier",
     component: Panier,
+  },
+  {
+    path: "/profil",
+    name: "Profil",
+    component: Profil,
   },
 ];
 

@@ -29,10 +29,10 @@ export default {
   },
   watch: {
     "$store.state.sequenceMenu": function () {
-      var firstItemMenu = this.$store.state.sequenceMenu[0].nom_categ;
+      let nextItemMenu = this.$store.state.sequenceMenu[0].nom_categ;
       this.$store.commit("incrementMenuCount");
-      console.log(this.$store.state.sequenceMenu);
-      this.$router.push("/" + firstItemMenu);
+      //console.log(this.$store.state.sequenceMenu);
+      this.$router.push("/" + nextItemMenu);
     },
   },
   mounted: function () {

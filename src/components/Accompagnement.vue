@@ -11,9 +11,11 @@
         <p>{{ accompagnement.description_produit }}</p>
         <p v-if="notMenu">{{ accompagnement.prix_produit }}€</p>
         <button v-if="notMenu" @click="addToPanier(accompagnement)">
-          Ajouter
+          Ajouter au Panier
         </button>
-        <button v-else @click="goNextMenuItem(accompagnement)">Ajouter2</button>
+        <button v-else @click="goNextMenuItem(accompagnement)">
+          Ajouter au Menu
+        </button>
       </div>
     </div>
   </div>
@@ -35,17 +37,17 @@ export default {
         var count = this.$store.state.menuCount;
         var firstItemMenu = this.$store.state.sequenceMenu[count].nom_categ;
         this.$store.commit("incrementMenuCount");
-        console.log(this.$store.state.sequenceMenu);
+        // console.log(this.$store.state.sequenceMenu);
         this.$router.push("/" + firstItemMenu);
       } else {
         this.$store.dispatch("pushToMenu", accompagnement);
-        this.$store.commit("pushMenuToPanier");
+        this.$store.dispatch("pushMenuToPanier", this.$store.state.curentMenu);
         this.$store.dispatch("priceHide");
         this.$router.push("/panier");
       }
     },
     addToPanier: function (accompagnement) {
-      console.log(accompagnement);
+      //console.log(accompagnement);
       this.$store.dispatch("pushToPanier", accompagnement);
     },
   },
@@ -53,9 +55,9 @@ export default {
     this.http
       .get("http://localhost:9000/accompagnements")
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         this.accompagnements = response.data.accompagnements;
-        console.log("this.accompagnement", this.accompagnements);
+        //console.log("this.accompagnement", this.accompagnements);
       })
       .catch((error) => {
         console.log(error);

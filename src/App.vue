@@ -2,7 +2,6 @@
 <template>
   <div id="app">
     <Navbar />
-
     <router-view />
     <Footer />
   </div>
@@ -13,7 +12,15 @@ import Footer from "@/components/Footer.vue";
 
 export default {
   data: function () {
-    return {};
+    return {
+      
+    };
+  },
+  mounted() {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      this.$store.commit("connected");
+    }
   },
   components: {
     Navbar,
