@@ -31,7 +31,8 @@
       <li class="deroulant">
         <router-link to="/contact">contact</router-link>
       </li>
-      <li v-if="this.$store.state.iconNotShow" class="loginHome">
+      <li> <router-link to="/formulaire">formulaire</router-link></li>
+      <li v-if="this.$store.state.notConnected" class="loginHome">
         <button v-on:click="toggleModal('in')" id="signInButton">
           S'inscrire
         </button>
@@ -44,8 +45,8 @@
           ><i class="fas fa-shopping-basket"></i
         ></router-link>
         <router-link to="/profil"><i class="fas fa-user"></i></router-link>
+      <button class="deco" @click="deco">deco</button>
       </li>
-      <li class="deco"><button @click="deco">deco</button></li>
     </ul>
     <Connexion
       v-bind:revele="revele"
@@ -66,14 +67,13 @@ export default {
       inscription: false,
       connexion: false,
       titre: "",
-    
     };
   },
   components: {
     Connexion,
   },
   methods: {
-    toggleModal: function (signState) {
+    toggleModal(signState) {
       this.revele = !this.revele;
       if (signState === "up") {
         this.connexion = true;
@@ -84,16 +84,15 @@ export default {
         this.inscription = true;
         this.connexion = false;
         this.titre = "INSCRIPTION";
-        console.log(this.$store.state.token)
+        console.log(this.$store.state.token);
       }
     },
 
-    deco: function () {
-      console.log("toto")
-        localStorage.removeItem('jwt')
-        document.location.reload();
-       this.$router.push('/burger')
-
+    deco() {
+      console.log("toto");
+      localStorage.removeItem("jwt");
+      document.location.reload();
+      this.$router.push("/burger");
     },
   },
 };
@@ -239,8 +238,8 @@ button:hover:after {
   font-size: 30px;
 }
 
-.deco{
-display: flex;
+.deco {
+  display: flex;
 
 }
 </style>
