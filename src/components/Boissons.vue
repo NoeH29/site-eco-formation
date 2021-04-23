@@ -6,8 +6,8 @@
         <h2 class="titre">{{ boisson.nom_produit }} :</h2>
         <p class="description">{{ boisson.description_produit }}</p>
         <p class="prix" v-if="notMenu">{{ boisson.prix_produit }}€</p>
-        <button class="ajouter" v-if="notMenu" @click="addToPanier(boisson)">Ajouter</button>
-        <button class="ajouter" v-else @click="goNextMenuItem(boisson)">Ajouter2</button>
+        <button class="ajouter" v-if="notMenu" @click="addToPanier(boisson)">Ajouter au Panier</button>
+        <button class="ajouter" v-else @click="goNextMenuItem(boisson)">Ajouter au Menu</button>
       </div>
     </div>
   </div>
@@ -24,21 +24,21 @@ export default {
   },
   methods: {
     addToPanier: function (boisson) {
-      console.log(boisson);
+      //console.log(boisson);
       this.$store.dispatch("pushToPanier", boisson);
     },
     goNextMenuItem: function (boisson) {
       if (this.$store.state.menuCount < this.$store.state.sequenceMenu.length) {
-        console.log(boisson);
+        //console.log(boisson);
         this.$store.dispatch("pushToMenu", boisson);
         var count = this.$store.state.menuCount;
         var firstItemMenu = this.$store.state.sequenceMenu[count].nom_categ;
         this.$store.commit("incrementMenuCount");
-        console.log(this.$store.state.sequenceMenu);
+        //console.log(this.$store.state.sequenceMenu);
         this.$router.push("/" + firstItemMenu);
       } else {
         this.$store.dispatch("pushToMenu", boisson);
-        this.$store.commit("pushMenuToPanier");
+        this.$store.dispatch("pushMenuToPanier", this.$store.state.curentMenu);
         this.$store.dispatch("priceHide");
         this.$router.push("/panier");
       }

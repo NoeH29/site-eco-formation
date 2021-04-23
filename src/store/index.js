@@ -9,28 +9,20 @@ export default new Vuex.Store({
   state: {
     menuShow: true,
     token: localStorage.getItem("jwt") || "",
-    mail: "",
-    iconNotShow: true,
+    notConnected: true,
     erreur: null,
     panier: [],
     sequenceMenu: [],
     menuCount: 0,
     curentMenu: null,
-    formAdmin: false,
   },
 
   mutations: {
     deco(state) {
       state.token = "";
     },
-    mail(state, item) {
-      state.mail = item;
-    },
-    show(state) {
-      state.iconNotShow = false;
-    },
-    admin(state) {
-      state.formAdmin = true;
+    connected(state) {
+      state.notConnected = false;
     },
     setError(state, item) {
       state.erreur = item;
@@ -39,18 +31,48 @@ export default new Vuex.Store({
       state.menuShow = !state.menuShow;
     },
     pushToPanier(state, item) {
-      state.panier.push(item);
+      let panierStorage;
+      if (localStorage.getItem("panier")) {
+        panierStorage = localStorage.getItem("panier");
+        panierStorage = JSON.parse(panierStorage);
+        console.log(item.curentMenu);
+        if (!item.curentMenu) {
+          const indice = panierStorage.findIndex(
+            (panier) => panier.id_produit === item.id_produit
+          );
+          if (indice >= 0) {
+            console.log("toto");
+            console.log(indice);
+            panierStorage[indice].quantity += 1;
+            console.log(panierStorage[indice]);
+          } else {
+            item.quantity = 1;
+            panierStorage.push(item);
+          }
+        } else {
+          item.quantity = 1;
+          panierStorage.push(item);
+        }
+      } else {
+        panierStorage = [];
+        item.quantity = 1;
+        panierStorage.push(item);
+      }
+      const panierToStorage = JSON.stringify(panierStorage);
+      localStorage.setItem("panier", panierToStorage);
     },
     createMenu(state, item) {
+      // let x = 0;
+      // item.push("id_MenuPanier : ");
       state.curentMenu = item;
     },
     pushToMenu(state, item) {
       state.curentMenu.push(item);
     },
-    pushMenuToPanier(state) {
+    resetMenu(state) {
       state.menuCount = 0;
       state.sequenceMenu = [];
-      state.panier.push({ curentMenu: state.curentMenu });
+      // state.panier.push({ curentMenu: state.curentMenu });
     },
     pushToSequence(state, item) {
       state.sequenceMenu = item;
@@ -70,14 +92,12 @@ export default new Vuex.Store({
     connexionBase(context, infos) {
       console.log(infos);
       axios.post("http://localhost:9000/connexion", infos).then((resp) => {
-        console.log("connexionBase", resp);
+        console.log("connexionBase", resp.data);
         localStorage.setItem("jwt", resp.data);
-        context.commit("mail", resp.config.data);
-        context.commit("show");
+        document.location.reload();
         axios.defaults.headers.common["authorization"] = resp.data;
       });
     },
-
     deco(context) {
       context.commit("deco");
     },
@@ -99,6 +119,10 @@ export default new Vuex.Store({
         //console.log(resp.data);
         context.commit("pushToSequence", resp.data.menuparams);
       });
+    },
+    pushMenuToPanier(context, item) {
+      context.commit("pushToPanier", { curentMenu: item });
+      context.commit("resetMenu");
     },
   },
   modules: {},

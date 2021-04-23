@@ -12,6 +12,8 @@ import FormulaireCateg from "../components/FormulaireCateg.vue";
 import FormulaireProduit from "../components/FormulaireProduit.vue";
 import FormulaireMenu from "../components/FormulaireMenu.vue";
 import Formulaire from "../components/Formulaire.vue";
+import Profil from "../views/Profil.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -75,6 +77,11 @@ const routes = [
     path: "/formulaire",
     name: "Formulaire",
     component: Formulaire,
+  },
+  {
+    path: "/profil",
+    name: "Profil",
+    component: Profil,
   },
 ];
 

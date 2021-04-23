@@ -20,17 +20,21 @@
         v-model="password"
         placeholder="Mot de passe"
       />
-      <p v-if="connexion">Pas encore inscrit ?<button class="smallBtn" @click="changeModal('in')" >clique ici.</button></p>
+      <p v-if="connexion">
+        Pas encore inscrit ?<button class="smallBtn" @click="changeModal('in')">
+          clique ici.
+        </button>
+      </p>
 
       <div id="inscription" v-if="inscription">
-         <input
+        <input
           type="password"
           id="confPassword"
           name="confPassword"
           v-model="confPassword"
           placeholder="confirmation de mot de passe"
-        /> 
-    
+        />
+
         <input
           type="text"
           id="nom"
@@ -53,25 +57,44 @@
           v-model="telephone"
           placeholder="téléphone"
         />
-        <p>Déjà inscrit ? <button class="smallBtn" @click="changeModal('up')">clique ici.</button></p>
+        <p>
+          Déjà inscrit ?
+          <button class="smallBtn" @click="changeModal('up')">
+            clique ici.
+          </button>
+        </p>
       </div>
-      <button id="signInButton" v-if="inscription" @click="inscriptionBase() ; checkForm()">
+      <button
+        id="signInButton"
+        v-if="inscription"
+        @click="
+          inscriptionBase();
+          checkForm();
+        "
+      >
         S'inscrire
       </button>
-      <button id="signUpButton" v-if="connexion " @click="connexionBase() ;checkFormCon()">
+      <button
+        id="signUpButton"
+        v-if="connexion"
+        @click="
+          connexionBase();
+          checkFormCon();
+        "
+      >
         Se connecter
       </button>
-       <p v-if="errors" class="listError">champ(s) manquant(s)
-    
-  </p>
-  <p  v-if="this.$store.state.erreur" class="mailError">{{this.$store.state.erreur}}</p>
+      <p v-if="errors" class="listError">champ(s) manquant(s)</p>
+      <p v-if="this.$store.state.erreur" class="mailError">
+        {{ this.$store.state.erreur }}
+      </p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data: function() {
+  data: function () {
     return {
       errors: false,
       nom: "",
@@ -87,48 +110,53 @@ export default {
   props: ["revele", "toggleModal", "inscription", "connexion", "titre"],
 
   methods: {
-     checkForm: function () {
-      if (this.mail && this.password && this.nom && this.prenom && this.telephone) {
+    checkForm: function () {
+      if (
+        this.mail &&
+        this.password &&
+        this.nom &&
+        this.prenom &&
+        this.telephone
+      ) {
         return true;
-      }
-     
-       if (!this.mail) {
-      this.errors =true
-        document.getElementById("mail").style.borderColor="red";
-      } 
-         if (!this.password) {
-       this.errors =true
-        document.getElementById("password").style.borderColor="red";
-      }
-      if (!this.nom) {
-        this.errors =true
-        document.getElementById("nom").style.borderColor="red";
-      }
-      if (!this.prenom) {
-       this.errors =true
-         document.getElementById("prenom").style.borderColor="red";
-      }
-         if (!this.telephone) {
-       this.errors =true
-        document.getElementById("telephone").style.borderColor="red";
       }
 
+      if (!this.mail) {
+        this.errors = true;
+        document.getElementById("mail").style.borderColor = "red";
+      }
+      if (!this.password) {
+        this.errors = true;
+        document.getElementById("password").style.borderColor = "red";
+      }
+      if (!this.nom) {
+        this.errors = true;
+        document.getElementById("nom").style.borderColor = "red";
+      }
+      if (!this.prenom) {
+        this.errors = true;
+        document.getElementById("prenom").style.borderColor = "red";
+      }
+      if (!this.telephone) {
+        this.errors = true;
+        document.getElementById("telephone").style.borderColor = "red";
+      }
     },
-    checkFormCon:function(){
-       if (this.mail && this.password) {
+    checkFormCon: function () {
+      if (this.mail && this.password) {
         return true;
       }
-       this.errors = [];
-       if (!this.mail) {
-        this.errors =true
-        document.getElementById("mail").style.borderColor="red";
-      } 
-         if (!this.password) {
-        this.errors =true
-        document.getElementById("password").style.borderColor="red";
+      this.errors = [];
+      if (!this.mail) {
+        this.errors = true;
+        document.getElementById("mail").style.borderColor = "red";
+      }
+      if (!this.password) {
+        this.errors = true;
+        document.getElementById("password").style.borderColor = "red";
       }
     },
-    inscriptionBase: function() {
+    inscriptionBase: function () {
       let info = {
         mail: this.mail,
         password: this.password,
@@ -136,54 +164,49 @@ export default {
         prenom: this.prenom,
         telephone: this.telephone,
       };
-      
-      if(this.mail != '' && this.password != '' && this.nom != '' && this.prenom != '' && this.telephone != ''){ 
-        if(this.password != this.confPassword){
-          console.log("erreur ")
-        } else{
-          this.$store.dispatch("inscriptionBase", info)
-           .then(this.toggleModal)
-       .then(() => this.goConnect)
-        .catch((err) => console.log(err));
 
+      if (
+        this.mail != "" &&
+        this.password != "" &&
+        this.nom != "" &&
+        this.prenom != "" &&
+        this.telephone != ""
+      ) {
+        if (this.password != this.confPassword) {
+          console.log("erreur ");
+        } else {
+          this.$store
+            .dispatch("inscriptionBase", info)
+            .then(this.toggleModal)
+            .then(() => this.goConnect)
+            .catch((err) => console.log(err));
         }
-        } else{
-         console.log("il manque un champs")
-    }
+      } else {
+        console.log("il manque un champs");
+      }
       this.$store.dispatch("inscriptionBase", info);
     },
-    connexionBase: function() {
-       if(this.mail != '' && this.password != '' ){
-         const mail = this.mail;
-         const password = this.password;
-      this.$store.dispatch("connexionBase",{mail,password}) 
-        .then(this.toggleModal)
-       .then(() => this.$router.push("/").catch(()=>{}))
-        .catch((err) => console.log(err));
-     }
+    connexionBase: function () {
+      if (this.mail != "" && this.password != "") {
+        const mail = this.mail;
+        const password = this.password;
+        this.$store
+          .dispatch("connexionBase", { mail, password })
+          .then(this.toggleModal)
+          .then(() => this.$router.push("/").catch(() => {}))
+          .catch((err) => console.log(err));
+      }
     },
-       connexionAdmin: function() {
-       if(this.mail != '' && this.password != '' ){
-         const mail = this.mail;
-         const password = this.password;
-      this.$store.dispatch("connexionAdmin",{mail,password}) 
-        .then(this.toggleModal)
-       .then(() => this.$router.push("/").catch(()=>{}))
-        .catch((err) => console.log(err));
-     }
-    },
-    changeModal:function(signState){  
-         if (signState === 'up') {
+    changeModal: function (signState) {
+      if (signState === "up") {
         this.connexion = true;
         this.inscription = false;
-        
       }
-      if (signState === 'in') {
+      if (signState === "in") {
         this.inscription = true;
         this.connexion = false;
-       
       }
-    }
+    },
   },
 };
 </script>
@@ -256,29 +279,28 @@ button:hover {
   background-color: #474130;
   box-shadow: 5px 5px 5px grey;
 }
-.mailError{
-  color : red;
+.mailError {
+  color: red;
   font-weight: bold;
 }
-.listError{
-font-weight: bold;
-list-style: none;
+.listError {
+  font-weight: bold;
+  list-style: none;
 }
-.smallBtn{
+.smallBtn {
   height: 20px;
   width: auto;
-  background : rgba(255, 0, 0, 0);
-   border:none;
+  background: rgba(255, 0, 0, 0);
+  border: none;
   cursor: pointer;
   font-weight: unset;
- 
-  color:black;
-}
-.smallBtn:hover{
- transform: none;
- background : rgba(255, 0, 0, 0);
- box-shadow:none;
-font-weight: bold;
 
+  color: black;
+}
+.smallBtn:hover {
+  transform: none;
+  background: rgba(255, 0, 0, 0);
+  box-shadow: none;
+  font-weight: bold;
 }
 </style>

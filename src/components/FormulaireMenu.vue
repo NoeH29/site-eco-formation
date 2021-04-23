@@ -18,8 +18,8 @@
 
     <input
       type="file"
-      id="photo"
-      name="photo"
+      id="photoMenu"
+      name="photoMenu"
       v-on="nom"
     />
     <button @click="envoi2()">Envoyer</button>
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     envoi2() {
-      let img = document.getElementById("photo").files[0];
+      let img = document.getElementById("photoMenu").files[0];
       // Création d'un formData obligatoire pour envoi de l'image
       var formData = new FormData();
       formData.append("nom", this.nom);
@@ -54,7 +54,7 @@ export default {
         .catch((err) => {
           console.log(err.response);
         });
-    document.location.reload();
+   // document.location.reload();
     },
   },
 };

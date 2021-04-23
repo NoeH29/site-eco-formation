@@ -6,8 +6,8 @@
         <h2 class="titre">{{ burger.nom_produit }} :</h2>
         <p class="prix" v-if="notMenu">{{ burger.prix_produit }} €</p>
         <p class="description">{{ burger.description_produit }}</p>
-        <button class="ajouter" v-if="notMenu" v-on:click="addToPanier(burger)">Ajouter</button>
-        <button class="ajouter" v-else @click="goNextMenuItem(burger)">Ajouter2</button>
+        <button class="ajouter" v-if="notMenu" v-on:click="addToPanier(burger)">Ajouter au Panier</button>
+        <button class="ajouter" v-else @click="goNextMenuItem(burger)">Ajouter au Menu</button>
       </div>
     </div>
   </div>
@@ -25,22 +25,22 @@ export default {
   methods: {
     goNextMenuItem: function (burger) {
       if (this.$store.state.menuCount < this.$store.state.sequenceMenu.length) {
-        console.log(burger);
+        // console.log(burger);
         this.$store.dispatch("pushToMenu", burger);
-        var count = this.$store.state.menuCount;
-        var firstItemMenu = this.$store.state.sequenceMenu[count].nom_categ;
+        let count = this.$store.state.menuCount;
+        let firstItemMenu = this.$store.state.sequenceMenu[count].nom_categ;
         this.$store.commit("incrementMenuCount");
-        console.log(this.$store.state.sequenceMenu);
+        //console.log(this.$store.state.sequenceMenu);
         this.$router.push("/" + firstItemMenu);
       } else {
         this.$store.dispatch("pushToMenu", burger);
-        this.$store.commit("pushMenuToPanier");
+        this.$store.dispatch("pushMenuToPanier", this.$store.state.curentMenu);
         this.$store.dispatch("priceHide");
         this.$router.push("/panier");
       }
     },
     addToPanier: function (burger) {
-      console.log(burger);
+      //console.log(burger);
       this.$store.dispatch("pushToPanier", burger);
     },
   },
@@ -48,7 +48,7 @@ export default {
     this.http
       .get("http://localhost:9000/burgers")
       .then((response) => {
-        console.log(response.data.burger);
+        //console.log(response.data.burger);
         this.burgers = response.data.burger;
       })
       .catch((error) => {
